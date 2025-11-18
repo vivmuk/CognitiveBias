@@ -98,13 +98,25 @@ Explore:
             });
 
             if (!response.ok) {
-                throw new Error(`Venice API error: ${response.status} ${response.statusText}`);
+                // Try to get error details from response
+                let errorDetails = '';
+                try {
+                    const errorData = await response.json();
+                    errorDetails = JSON.stringify(errorData);
+                    console.error('Venice API error response:', errorData);
+                } catch (e) {
+                    errorDetails = await response.text();
+                    console.error('Venice API error text:', errorDetails);
+                }
+                throw new Error(`Venice API error: ${response.status} ${response.statusText}. Details: ${errorDetails}`);
             }
 
             const data = await response.json();
             return data.choices[0].message.content;
         } catch (error) {
             console.error('Error calling Venice API:', error);
+            console.error('Request URL:', this.baseURL);
+            console.error('Model:', this.model);
             return this.getFallbackContent(explorationType);
         }
     }
@@ -141,13 +153,25 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
             });
 
             if (!response.ok) {
-                throw new Error(`Venice API error: ${response.status} ${response.statusText}`);
+                // Try to get error details from response
+                let errorDetails = '';
+                try {
+                    const errorData = await response.json();
+                    errorDetails = JSON.stringify(errorData);
+                    console.error('Venice API error response:', errorData);
+                } catch (e) {
+                    errorDetails = await response.text();
+                    console.error('Venice API error text:', errorDetails);
+                }
+                throw new Error(`Venice API error: ${response.status} ${response.statusText}. Details: ${errorDetails}`);
             }
 
             const data = await response.json();
             return data.choices[0].message.content;
         } catch (error) {
             console.error('Error calling Venice API:', error);
+            console.error('Request URL:', this.baseURL);
+            console.error('Model:', this.model);
             return "I apologize, but I'm having trouble connecting to the AI service right now. Please try again later or explore one of the predefined categories.";
         }
     }
