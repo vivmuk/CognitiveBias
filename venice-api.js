@@ -106,7 +106,6 @@ Explore:
             const response = await fetch(this.baseURL, {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${this.apiKey}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(requestBody),
@@ -202,7 +201,6 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
             const response = await fetch(this.baseURL, {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${this.apiKey}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(requestBody),
