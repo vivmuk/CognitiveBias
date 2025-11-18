@@ -120,21 +120,28 @@ Explore:
             console.log('Response Text:', responseText);
 
             if (!response.ok) {
-                // Try to get error details from response
-                let errorDetails = '';
+                // Try to parse error details
+                let errorDetails = responseText;
                 try {
-                    const errorData = await response.json();
-                    errorDetails = JSON.stringify(errorData);
-                    console.error('Venice API error response:', errorData);
+                    const errorData = JSON.parse(responseText);
+                    errorDetails = JSON.stringify(errorData, null, 2);
+                    console.error('Venice API error response (JSON):', errorData);
                 } catch (e) {
-                    errorDetails = await response.text();
-                    console.error('Venice API error text:', errorDetails);
+                    console.error('Venice API error response (text):', responseText);
                 }
                 throw new Error(`Venice API error: ${response.status} ${response.statusText}. Details: ${errorDetails}`);
             }
 
-            const data = await response.json();
-            return data.choices[0].message.content;
+            // Parse successful response
+            const data = JSON.parse(responseText);
+            console.log('Response Data:', data);
+            
+            if (data.choices && data.choices[0] && data.choices[0].message) {
+                return data.choices[0].message.content;
+            } else {
+                console.error('Unexpected response format:', data);
+                throw new Error('Unexpected response format from Venice API');
+            }
         } catch (error) {
             console.error('Error calling Venice API:', error);
             console.error('Request URL:', this.baseURL);
@@ -193,21 +200,28 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
             console.log('Response Text:', responseText);
 
             if (!response.ok) {
-                // Try to get error details from response
-                let errorDetails = '';
+                // Try to parse error details
+                let errorDetails = responseText;
                 try {
-                    const errorData = await response.json();
-                    errorDetails = JSON.stringify(errorData);
-                    console.error('Venice API error response:', errorData);
+                    const errorData = JSON.parse(responseText);
+                    errorDetails = JSON.stringify(errorData, null, 2);
+                    console.error('Venice API error response (JSON):', errorData);
                 } catch (e) {
-                    errorDetails = await response.text();
-                    console.error('Venice API error text:', errorDetails);
+                    console.error('Venice API error response (text):', responseText);
                 }
                 throw new Error(`Venice API error: ${response.status} ${response.statusText}. Details: ${errorDetails}`);
             }
 
-            const data = await response.json();
-            return data.choices[0].message.content;
+            // Parse successful response
+            const data = JSON.parse(responseText);
+            console.log('Response Data:', data);
+            
+            if (data.choices && data.choices[0] && data.choices[0].message) {
+                return data.choices[0].message.content;
+            } else {
+                console.error('Unexpected response format:', data);
+                throw new Error('Unexpected response format from Venice API');
+            }
         } catch (error) {
             console.error('Error calling Venice API:', error);
             console.error('Request URL:', this.baseURL);
