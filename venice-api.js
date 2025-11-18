@@ -3,7 +3,7 @@ class VeniceAPIService {
     constructor() {
         this.apiKey = 'ntmhtbP2fr_pOQsmuLPuN_nm6lm2INWKiNcvrdEfEC';
         this.baseURL = 'https://api.venice.ai/v1/chat/completions';
-        this.model = 'qwen80'; // Using Qwen 80 model
+        this.model = 'qwen3-next-80b'; // Using Qwen 3 Next 80B model
     }
 
     async generateDeepExploration(biasTitle, biasDescription, explorationType = 'general') {
