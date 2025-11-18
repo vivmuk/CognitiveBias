@@ -3,7 +3,7 @@ class VeniceAPIService {
     constructor() {
         this.apiKey = 'ntmhtbP2fr_pOQsmuLPuN_nm6lm2INWKiNcvrdEfEC';
         this.baseURL = 'https://api.venice.ai/api/v1/chat/completions';
-        this.model = 'qwen3-next-80b'; // Using Qwen 3 Next 80B model
+        this.model = 'venice-uncensored'; // Using Venice Uncensored model
     }
 
     async generateDeepExploration(biasTitle, biasDescription, explorationType = 'general') {
@@ -77,6 +77,9 @@ Explore:
         };
 
         try {
+            console.log('Making Venice API request to:', this.baseURL);
+            console.log('Using model:', this.model);
+            
             const response = await fetch(this.baseURL, {
                 method: 'POST',
                 headers: {
@@ -96,6 +99,9 @@ Explore:
                     top_p: 0.9
                 })
             });
+            
+            console.log('Response status:', response.status);
+            console.log('Response headers:', response.headers);
 
             if (!response.ok) {
                 // Try to get error details from response
@@ -132,6 +138,9 @@ User's specific question or area of interest: ${customPrompt}
 Please provide a thoughtful, detailed response that combines scientific accuracy with practical insights. Make it engaging and actionable.`;
 
         try {
+            console.log('Making Venice API request to:', this.baseURL);
+            console.log('Using model:', this.model);
+            
             const response = await fetch(this.baseURL, {
                 method: 'POST',
                 headers: {
@@ -151,6 +160,9 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
                     top_p: 0.9
                 })
             });
+            
+            console.log('Response status:', response.status);
+            console.log('Response headers:', response.headers);
 
             if (!response.ok) {
                 // Try to get error details from response
