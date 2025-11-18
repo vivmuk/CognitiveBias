@@ -1,7 +1,7 @@
 // Venice AI API Service for Cognitive Bias Deep Exploration
 class VeniceAPIService {
     constructor() {
-        this.apiKey = 'ntmhtbP2fr_pOQsmuLPuN_nm6lm2INWKiNcvrdEfEC';
+        this.apiKey = 'lnWNeSg0pA_rQUooNpbfpPDBaj2vJnWol5WqKWrIEF';
         this.baseURL = 'https://api.venice.ai/api/v1/chat/completions';
         this.model = 'venice-uncensored'; // Using Venice Uncensored model
     }
