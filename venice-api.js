@@ -77,8 +77,28 @@ Explore:
         };
 
         try {
-            console.log('Making Venice API request to:', this.baseURL);
-            console.log('Using model:', this.model);
+            const requestBody = {
+                model: this.model,
+                messages: [
+                    {
+                        role: 'user',
+                        content: prompts[explorationType] || prompts.general
+                    }
+                ],
+                temperature: 0.7,
+                max_tokens: 2048,
+                top_p: 0.9
+            };
+            
+            console.log('=== Venice API Request ===');
+            console.log('URL:', this.baseURL);
+            console.log('Method: POST');
+            console.log('Headers:', {
+                'Authorization': `Bearer ${this.apiKey.substring(0, 10)}...`,
+                'Content-Type': 'application/json'
+            });
+            console.log('Request Body:', JSON.stringify(requestBody, null, 2));
+            console.log('Prompt length:', (prompts[explorationType] || prompts.general).length, 'characters');
             
             const response = await fetch(this.baseURL, {
                 method: 'POST',
@@ -86,22 +106,12 @@ Explore:
                     'Authorization': `Bearer ${this.apiKey}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    model: this.model,
-                    messages: [
-                        {
-                            role: 'user',
-                            content: prompts[explorationType] || prompts.general
-                        }
-                    ],
-                    temperature: 0.7,
-                    max_tokens: 2048,
-                    top_p: 0.9
-                })
+                body: JSON.stringify(requestBody)
             });
             
-            console.log('Response status:', response.status);
-            console.log('Response headers:', response.headers);
+            console.log('=== Venice API Response ===');
+            console.log('Status:', response.status, response.statusText);
+            console.log('Headers:', Object.fromEntries(response.headers.entries()));
 
             if (!response.ok) {
                 // Try to get error details from response
@@ -138,8 +148,28 @@ User's specific question or area of interest: ${customPrompt}
 Please provide a thoughtful, detailed response that combines scientific accuracy with practical insights. Make it engaging and actionable.`;
 
         try {
-            console.log('Making Venice API request to:', this.baseURL);
-            console.log('Using model:', this.model);
+            const requestBody = {
+                model: this.model,
+                messages: [
+                    {
+                        role: 'user',
+                        content: fullPrompt
+                    }
+                ],
+                temperature: 0.7,
+                max_tokens: 1500,
+                top_p: 0.9
+            };
+            
+            console.log('=== Venice API Request (Custom) ===');
+            console.log('URL:', this.baseURL);
+            console.log('Method: POST');
+            console.log('Headers:', {
+                'Authorization': `Bearer ${this.apiKey.substring(0, 10)}...`,
+                'Content-Type': 'application/json'
+            });
+            console.log('Request Body:', JSON.stringify(requestBody, null, 2));
+            console.log('Prompt length:', fullPrompt.length, 'characters');
             
             const response = await fetch(this.baseURL, {
                 method: 'POST',
@@ -147,22 +177,12 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
                     'Authorization': `Bearer ${this.apiKey}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    model: this.model,
-                    messages: [
-                        {
-                            role: 'user',
-                            content: fullPrompt
-                        }
-                    ],
-                    temperature: 0.7,
-                    max_tokens: 1500,
-                    top_p: 0.9
-                })
+                body: JSON.stringify(requestBody)
             });
             
-            console.log('Response status:', response.status);
-            console.log('Response headers:', response.headers);
+            console.log('=== Venice API Response (Custom) ===');
+            console.log('Status:', response.status, response.statusText);
+            console.log('Headers:', Object.fromEntries(response.headers.entries()));
 
             if (!response.ok) {
                 // Try to get error details from response
