@@ -78,6 +78,18 @@
 
         async function testSimple() {
             log('Testing simple request...', 'info');
+            log(`URL: ${BASE_URL}`, 'info');
+            log(`Model: ${MODEL}`, 'info');
+            
+            const requestBody = {
+                model: MODEL,
+                messages: [
+                    { role: 'user', content: 'Hello, say hi back in one sentence.' }
+                ]
+            };
+            
+            log(`Request Body: ${JSON.stringify(requestBody, null, 2)}`, 'info');
+            
             try {
                 const response = await fetch(BASE_URL, {
                     method: 'POST',
@@ -85,26 +97,32 @@
                         'Authorization': `Bearer ${API_KEY}`,
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        model: MODEL,
-                        messages: [
-                            { role: 'user', content: 'Hello, say hi back in one sentence.' }
-                        ]
-                    })
+                    body: JSON.stringify(requestBody)
                 });
                 
                 log(`Response Status: ${response.status} ${response.statusText}`, response.ok ? 'success' : 'error');
+                log(`Response Headers: ${JSON.stringify(Object.fromEntries(response.headers.entries()))}`, 'info');
                 
                 if (!response.ok) {
-                    const errorText = await response.text();
+                    let errorText = '';
+                    try {
+                        const errorJson = await response.json();
+                        errorText = JSON.stringify(errorJson, null, 2);
+                    } catch (e) {
+                        errorText = await response.text();
+                    }
                     log(`Error Response: ${errorText}`, 'error');
                     return;
                 }
                 
                 const data = await response.json();
                 log(`Success! Response: ${JSON.stringify(data, null, 2)}`, 'success');
+                if (data.choices && data.choices[0]) {
+                    log(`AI Response: ${data.choices[0].message.content}`, 'success');
+                }
             } catch (error) {
                 log(`Exception: ${error.message}`, 'error');
+                log(`Stack: ${error.stack}`, 'error');
                 console.error('Full error:', error);
             }
         }
