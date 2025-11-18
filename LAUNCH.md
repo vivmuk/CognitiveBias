@@ -3,16 +3,19 @@
 ## Quick Start
 
 ### Option 1: Simple File Opening (Basic Testing)
-1. Navigate to the project folder: `google cog bias`
-2. Double-click `bias-learning-hub.html` to open it in your default browser
-3. **Note**: Some features may not work due to CORS restrictions when opening files directly
+1. Double-click `bias-learning-hub.html` to open it in your default browser
+2. **Note**: Some features may not work due to CORS restrictions when opening files directly
 
 ### Option 2: Local Web Server (Recommended)
+
+#### Using the Batch File (Easiest):
+- Double-click `start-server.bat`
+- Open: `http://localhost:8000/bias-learning-hub.html`
 
 #### Using Python (if installed):
 ```bash
 # Navigate to the project folder
-cd "c:\Users\vivga\OneDrive\AI\AI Projects\Cognitive BIas\google cog bias"
+cd "c:\Users\vivga\OneDrive\AI\AI Projects\Cognitive BIas"
 
 # Python 3
 python -m http.server 8000
@@ -29,7 +32,7 @@ Then open: `http://localhost:8000/bias-learning-hub.html`
 npm install -g http-server
 
 # Navigate to the project folder
-cd "c:\Users\vivga\OneDrive\AI\AI Projects\Cognitive BIas\google cog bias"
+cd "c:\Users\vivga\OneDrive\AI\AI Projects\Cognitive BIas"
 
 # Start server
 http-server -p 8000
@@ -83,7 +86,7 @@ Each bias page includes:
 ### Pages Not Loading?
 1. Ensure `all-99-biases.js` is in the same folder
 2. Check browser console for JavaScript errors
-3. Verify all files are in the `google cog bias` folder
+3. Verify all files are in the repository root folder
 
 ### Navigation Issues?
 - All pages should link correctly
@@ -93,13 +96,14 @@ Each bias page includes:
 ## File Structure
 
 ```
-google cog bias/
+Cognitive BIas/
 ├── bias-learning-hub.html      # Main hub page
 ├── bias-1.html to bias-99.html # Individual bias pages
 ├── all-99-biases.js            # All bias data
 ├── venice-api.js               # Venice AI integration
 ├── styles.css                  # Styling
 ├── test-venice-api.html         # API test page
+├── Cog/                        # Favicon and app icons
 └── generate-all-bias-pages.js  # Page generator script
 ```
 

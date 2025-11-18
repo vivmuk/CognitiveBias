@@ -4,16 +4,16 @@
 
 All file references in this project use **relative paths**, which means they work correctly as long as you:
 
-1. **Run the server from the `google cog bias` folder**
+1. **Run the server from the repository root folder**
 2. **Access files via `http://localhost:8000/...`**
 
 ## Correct Server Setup
 
-### Start Server from Correct Directory:
+### Start Server from Repository Root:
 
 ```bash
-# Navigate to the project folder FIRST
-cd "c:\Users\vivga\OneDrive\AI\AI Projects\Cognitive BIas\google cog bias"
+# Navigate to the project folder
+cd "c:\Users\vivga\OneDrive\AI\AI Projects\Cognitive BIas"
 
 # Then start server
 python -m http.server 8000
@@ -21,14 +21,14 @@ python -m http.server 8000
 
 ### Or Use the Batch File:
 
-Double-click `start-server.bat` - it automatically navigates to the correct folder.
+Double-click `start-server.bat` - it runs from the current directory.
 
 ## File Structure
 
-All files are in the same directory (`google cog bias/`), so paths are simple:
+All files are in the repository root, so paths are simple:
 
 ```
-google cog bias/
+Cognitive BIas/
 ├── bias-learning-hub.html    ← Main hub
 ├── bias-1.html to bias-99.html
 ├── all-99-biases.js          ← Referenced as "all-99-biases.js"
@@ -42,7 +42,7 @@ google cog bias/
 
 ## Accessing Files
 
-When server is running from `google cog bias/` folder:
+When server is running from repository root:
 
 ✅ **Correct URLs:**
 - http://localhost:8000/bias-learning-hub.html
@@ -50,8 +50,7 @@ When server is running from `google cog bias/` folder:
 - http://localhost:8000/bias-1.html
 
 ❌ **Wrong URLs:**
-- http://localhost:8000/google%20cog%20bias/bias-learning-hub.html
-- file:///C:/Users/.../bias-learning-hub.html
+- file:///C:/Users/.../bias-learning-hub.html (CORS issues)
 
 ## Why Relative Paths Work
 
@@ -60,7 +59,7 @@ All HTML files use relative paths like:
 - `src="all-99-biases.js"` (not `/all-99-biases.js` or absolute paths)
 
 This means:
-- ✅ Works when server runs from `google cog bias/` folder
+- ✅ Works when server runs from repository root
 - ✅ Works on Netlify (all files in root)
 - ✅ Works locally with any server
 
@@ -69,14 +68,14 @@ This means:
 If you get 404 errors:
 
 1. **Check server is running**: Terminal should show "Serving HTTP on..."
-2. **Check server directory**: Server must run from `google cog bias/` folder
+2. **Check server directory**: Server must run from repository root
 3. **Check URL**: Use `http://localhost:8000/filename.html` (not file://)
-4. **Verify file exists**: Check file is in `google cog bias/` folder
+4. **Verify file exists**: Check file is in repository root
 
 ## Quick Test
 
-1. Open terminal in `google cog bias/` folder
-2. Run: `python -m http.server 8000`
+1. Open terminal in repository root
+2. Run: `python -m http.server 8000` (or double-click `start-server.bat`)
 3. Open browser: http://localhost:8000/bias-learning-hub.html
 4. Should work! ✅
 

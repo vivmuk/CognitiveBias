@@ -15,10 +15,7 @@
 3. **Build Settings**
    - **Build command**: Leave empty (static site)
    - **Publish directory**: `.` (root directory)
-   - **Base directory**: 
-     - If your GitHub repo root is the `google cog bias` folder: Leave empty
-     - If your GitHub repo root is the parent folder: Set to `google cog bias`
-     - Check your repo structure to determine which applies
+   - **Base directory**: Leave empty (all files are now in the repo root)
 
 4. **Deploy**
    - Click "Deploy site"

@@ -1,8 +1,6 @@
 [build]
   # No build command needed - static site
-  # Publish from current directory (all files should be in root)
-  # If your repo root is the parent folder, set base directory in Netlify dashboard:
-  # Site settings → Build & deploy → Base directory: "google cog bias"
+  # All files are in the repository root
   publish = "."
 
 [[redirects]]

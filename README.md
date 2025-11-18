@@ -25,6 +25,10 @@ The site is ready for deployment. See [NETLIFY-DEPLOY.md](./NETLIFY-DEPLOY.md) f
 
 ### Option 2: Local Web Server (Recommended)
 
+#### Using the Batch File (Easiest):
+- Double-click `start-server.bat`
+- Open: `http://localhost:8000/bias-learning-hub.html`
+
 #### Using Python:
 ```bash
 python -m http.server 8000

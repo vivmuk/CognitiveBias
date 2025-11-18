@@ -7,7 +7,7 @@
 
 **Option 2: Python command**
 ```bash
-cd "c:\Users\vivga\OneDrive\AI\AI Projects\Cognitive BIas\google cog bias"
+cd "c:\Users\vivga\OneDrive\AI\AI Projects\Cognitive BIas"
 python -m http.server 8000
 ```
 
