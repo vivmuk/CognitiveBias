@@ -100,6 +100,7 @@ Explore:
             console.log('Model:', this.model);
             console.log('Request Body:', JSON.stringify(requestBody, null, 2));
             console.log('Prompt preview:', promptContent.substring(0, 100) + '...');
+            console.log('Origin:', window.location.origin);
             
             const response = await fetch(this.baseURL, {
                 method: 'POST',
@@ -107,7 +108,9 @@ Explore:
                     'Authorization': `Bearer ${this.apiKey}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(requestBody)
+                body: JSON.stringify(requestBody),
+                mode: 'cors', // Explicitly set CORS mode
+                credentials: 'omit' // Don't send credentials
             });
             
             console.log('=== Venice API Response ===');
@@ -193,6 +196,7 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
             console.log('Model:', this.model);
             console.log('Request Body:', JSON.stringify(requestBody, null, 2));
             console.log('Prompt preview:', fullPrompt.substring(0, 100) + '...');
+            console.log('Origin:', window.location.origin);
             
             const response = await fetch(this.baseURL, {
                 method: 'POST',
@@ -200,7 +204,9 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
                     'Authorization': `Bearer ${this.apiKey}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(requestBody)
+                body: JSON.stringify(requestBody),
+                mode: 'cors', // Explicitly set CORS mode
+                credentials: 'omit' // Don't send credentials
             });
             
             console.log('=== Venice API Response (Custom) ===');
