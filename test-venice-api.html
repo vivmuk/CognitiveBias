@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venice AI API Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="venice-api.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+            padding: 2rem;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+        button {
+            background: #4f46e5;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        button:hover {
+            background: #4338ca;
+        }
+        #result {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0.5rem;
+            white-space: pre-wrap;
+        }
+        .loading {
+            color: #fbbf24;
+        }
+        .success {
+            color: #10b981;
+        }
+        .error {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="text-3xl font-bold mb-4 text-white">Venice AI API Test</h1>
+        <p class="text-slate-300 mb-6">Test the Venice AI integration for cognitive bias exploration.</p>
+        
+        <div class="mb-4">
+            <button onclick="testGeneral()">Test General Exploration</button>
+            <button onclick="testBusiness()">Test Business Focus</button>
+            <button onclick="testCustom()">Test Custom Question</button>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const veniceAPI = new VeniceAPIService();
+        
+        function showResult(message, type = 'info') {
+            const resultDiv = document.getElementById('result');
+            const className = type === 'loading' ? 'loading' : type === 'error' ? 'error' : 'success';
+            resultDiv.className = className;
+            resultDiv.textContent = message;
+        }
+
+        async function testGeneral() {
+            showResult('Testing general exploration...', 'loading');
+            try {
+                const response = await veniceAPI.generateDeepExploration(
+                    'Survivorship Bias',
+                    'We systematically overestimate our chances of success by focusing on triumphant survivors while ignoring failures.',
+                    'general'
+                );
+                showResult('✅ SUCCESS!\n\n' + response, 'success');
+            } catch (error) {
+                showResult('❌ ERROR: ' + error.message + '\n\nCheck the browser console for details.', 'error');
+                console.error('Full error:', error);
+            }
+        }
+
+        async function testBusiness() {
+            showResult('Testing business exploration...', 'loading');
+            try {
+                const response = await veniceAPI.generateDeepExploration(
+                    'Confirmation Bias',
+                    'We tend to interpret new information in a way that confirms our existing beliefs.',
+                    'business'
+                );
+                showResult('✅ SUCCESS!\n\n' + response, 'success');
+            } catch (error) {
+                showResult('❌ ERROR: ' + error.message + '\n\nCheck the browser console for details.', 'error');
+                console.error('Full error:', error);
+            }
+        }
+
+        async function testCustom() {
+            showResult('Testing custom question...', 'loading');
+            try {
+                const response = await veniceAPI.generateCustomPrompt(
+                    'Sunk Cost Fallacy',
+                    'We justify continuing a failing project because we\'ve already invested so much.',
+                    'How does sunk cost fallacy affect investment decisions?'
+                );
+                showResult('✅ SUCCESS!\n\n' + response, 'success');
+            } catch (error) {
+                showResult('❌ ERROR: ' + error.message + '\n\nCheck the browser console for details.', 'error');
+                console.error('Full error:', error);
+            }
+        }
+
+        // Auto-test on load
+        window.addEventListener('load', () => {
+            console.log('Venice API Service loaded:', veniceAPI);
+            console.log('API Key:', veniceAPI.apiKey ? 'Present' : 'Missing');
+            console.log('Base URL:', veniceAPI.baseURL);
+            console.log('Model:', veniceAPI.model);
+        });
+    </script>
+</body>
+</html>
+

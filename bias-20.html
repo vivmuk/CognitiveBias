@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outcome Bias - Cognitive Bias Learning Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="all-99-biases.js"></script>
+    <script src="venice-api.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+        
+        .main-content {
+            margin-right: 140px;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-content {
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Floating Navigation -->
+    <div class="floating-nav">
+        <a href="#overview" class="nav-item active" onclick="scrollToSection('overview')">Overview</a>
+        <a href="#details" class="nav-item" onclick="scrollToSection('details')">Details</a>
+        <a href="#examples" class="nav-item" onclick="scrollToSection('examples')">Examples</a>
+        <a href="#quiz" class="nav-item" onclick="scrollToSection('quiz')">Quiz</a>
+        <a href="#explore" class="nav-item" onclick="scrollToSection('explore')">Explore</a>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 main-content">
+        <!-- Navigation Bar -->
+        <div class="navigation-bar">
+            <div class="flex justify-between items-center text-white">
+                <a href="bias-learning-hub.html" class="flex items-center space-x-2 hover:opacity-80">
+                    <span>←</span>
+                    <span>Back to Hub</span>
+                </a>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm opacity-80">Bias #20 of 99</span>
+                    <div class="flex space-x-2">
+                        <a href="bias-19.html" class="px-3 py-1 bg-slate-600 bg-opacity-50 rounded hover:bg-opacity-70">← Previous</a>
+                        <a href="bias-21.html" class="px-3 py-1 bg-slate-600 bg-opacity-50 rounded hover:bg-opacity-70">Next →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <section id="overview" class="content-card">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-white mb-4">Outcome Bias</h1>
+                <p class="text-xl text-slate-300 italic mb-6">Judging Decisions by Results</p>
+                <div class="flex justify-center items-center space-x-4 mb-6">
+                    <span class="px-3 py-1 bg-yellow-500 text-white rounded-full text-sm font-medium">Intermediate</span>
+                    <span class="px-3 py-1 bg-purple-500 text-white rounded-full text-sm font-medium">decision making</span>
+                    <span class="px-3 py-1 bg-gray-500 text-white rounded-full text-sm font-medium">Chapter 20</span>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-4">What is it?</h3>
+                    <p class="text-slate-300 leading-relaxed mb-6">We judge the quality of decisions based on their outcomes rather than the decision-making process used. This prevents us from learning properly from both successes and failures.</p>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-4">Why it matters</h3>
+                    <p class="text-slate-300 leading-relaxed">Good decisions can have bad outcomes due to luck, and bad decisions can have good outcomes. Outcome bias makes us think good outcomes mean good decisions, preventing us from improving our decision-making process.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 p-6 rounded-lg border border-indigo-500/30">
+                    <h3 class="text-xl font-bold text-white mb-4">Key Insight</h3>
+                    <blockquote class="text-lg text-slate-200 italic border-l-4 border-indigo-500 pl-4">
+                        "A CEO makes a risky acquisition without proper due diligence."
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Explanation Section -->
+        <section id="details" class="content-card">
+            <h2 class="text-3xl font-bold text-white mb-6">How Outcome Bias Works</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-orange-500/20 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                    <h3 class="text-xl font-bold text-orange-300 mb-3">The Mechanism</h3>
+                    <p class="text-slate-300">Good decisions can have bad outcomes due to luck, and bad decisions can have good outcomes. Outcome bias makes us think good outcomes mean good decisions, preventing us from improving our decision-making process.</p>
+                </div>
+                
+                <div class="bg-cyan-500/20 border-l-4 border-cyan-500 p-6 rounded-r-lg">
+                    <h3 class="text-xl font-bold text-cyan-300 mb-3">How to Detect It</h3>
+                    <p class="text-slate-300 mb-3">Notice when you judge decisions primarily based on how they turned out, rather than whether the decision-making process was sound given the information available at the time.</p>
+                </div>
+                
+                <div class="bg-green-500/20 border-l-4 border-green-500 p-6 rounded-r-lg">
+                    <h3 class="text-xl font-bold text-green-300 mb-3">Countermeasures</h3>
+                    <ul class="list-disc list-inside text-slate-300 space-y-2">
+                        <li>Evaluate decisions based on the process, not just outcomes</li><li>Consider what information was available when the decision was made</li><li>Separate luck from skill in analyzing results</li><li>Learn from both good and bad processes, regardless of outcomes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Real-World Examples Section -->
+        <section id="examples" class="content-card">
+            <h2 class="text-3xl font-bold text-white mb-6">Real-World Example</h2>
+            
+            <div class="bg-blue-500/20 p-6 rounded-lg border border-blue-500/30">
+                <h3 class="text-xl font-bold text-blue-300 mb-3">📝 Case Study</h3>
+                <p class="text-slate-300">A CEO makes a risky acquisition without proper due diligence. If the acquisition succeeds due to unexpected market conditions, they might be praised as visionary. If it fails, they're criticized. The decision quality should be judged by the process, not the outcome.</p>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="quiz-container">
+            <h2 class="text-3xl font-bold mb-6">Test Your Understanding</h2>
+            
+            <div id="quizContent">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-4">An investor makes a risky bet without research and gets lucky. You should:</h3>
+                    
+                    <div class="space-y-3">
+                        <button class="quiz-option w-full text-left" onclick="selectAnswer(this, false)">Praise their investment skill and intuition</button>
+                        <button class="quiz-option w-full text-left" onclick="selectAnswer(this, false)">Try to copy their investment strategy</button>
+                        <button class="quiz-option w-full text-left" onclick="selectAnswer(this, false)">Assume they had special insight into the market</button>
+                        <button class="quiz-option w-full text-left" onclick="selectAnswer(this, true)">Recognize this as a poor decision despite the good outcome</button>
+                    </div>
+                </div>
+                
+                <div id="quizResult" class="hidden mt-6 p-4 rounded-lg border-2 border-white border-opacity-30 bg-slate-700/50">
+                    <div id="resultText"></div>
+                    <button onclick="completeLesson()" 
+                            class="mt-4 px-6 py-3 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition-colors">
+                        Mark as Complete & Continue
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deep Exploration Section -->
+        <section id="explore" class="deep-dive-section">
+            <h2 class="text-3xl font-bold mb-6">Explore Deeper with AI</h2>
+            <p class="text-lg mb-6 opacity-90">
+                Use AI to explore this bias from different perspectives and get personalized insights.
+            </p>
+            
+            <!-- Exploration Categories -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4">Choose an exploration focus:</h3>
+                <div class="flex flex-wrap">
+                    <button class="exploration-button" onclick="exploreCategory('business')">
+                        🏢 Business Impact
+                    </button>
+                    <button class="exploration-button" onclick="exploreCategory('personal')">
+                        👤 Personal Life
+                    </button>
+                    <button class="exploration-button" onclick="exploreCategory('scientific')">
+                        🔬 Scientific Research
+                    </button>
+                    <button class="exploration-button" onclick="exploreCategory('historical')">
+                        📚 Historical Examples
+                    </button>
+                    <button class="exploration-button" onclick="exploreCategory('general')">
+                        🧠 Deep Psychology
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Custom Prompt Area -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4">Or ask your own question:</h3>
+                <textarea class="custom-prompt-area" placeholder="Ask anything about Outcome Bias..." id="customPrompt"></textarea>
+                <button onclick="exploreCustom()" class="exploration-button">
+                    💬 Get AI Insights
+                </button>
+            </div>
+            
+            <!-- Suggested Questions -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4">Quick questions to explore:</h3>
+                <div class="space-y-2" id="suggestedQuestions">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- AI Response Area -->
+            <div id="aiResponse" class="hidden">
+                <h3 class="text-xl font-bold mb-4 text-indigo-300">🤖 AI Insights:</h3>
+                <div id="responseContent" class="ai-response-viewer">
+                    <!-- AI response will be inserted here -->
+                </div>
+            </div>
+            
+            <!-- Loading State -->
+            <div id="loadingState" class="hidden text-center py-8">
+                <div class="loading-spinner mx-auto mb-4"></div>
+                <p class="text-lg">Generating deep insights...</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Initialize Venice API
+        const veniceAPI = new VeniceAPIService();
+        let currentBias = null;
+        
+        // Load bias data
+        document.addEventListener('DOMContentLoaded', function() {
+            currentBias = {
+                id: 20,
+                title: "Outcome Bias",
+                summary: "We judge the quality of decisions based on their outcomes rather than the decision-making process used. This prevents us from learning properly from both successes and failures."
+            };
+            
+            loadSuggestedQuestions();
+            updateProgress();
+        });
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[href="#${sectionId}"]`).classList.add('active');
+        }
+
+        function updateProgress() {
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            const progress = (scrollPosition / (documentHeight - windowHeight)) * 100;
+            document.getElementById('progressFill').style.width = `${Math.min(progress, 100)}%`;
+        }
+
+        function selectAnswer(button, isCorrect) {
+            // Disable all options
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.disabled = true;
+                option.style.cursor = 'default';
+            });
+            
+            // Style the selected answer
+            if (isCorrect) {
+                button.style.background = 'rgba(34, 197, 94, 0.8)';
+                button.style.borderColor = 'rgb(34, 197, 94)';
+            } else {
+                button.style.background = 'rgba(239, 68, 68, 0.8)';
+                button.style.borderColor = 'rgb(239, 68, 68)';
+                
+                // Highlight the correct answer
+                document.querySelectorAll('.quiz-option').forEach(option => {
+                    if (option.onclick.toString().includes('true')) {
+                        option.style.background = 'rgba(34, 197, 94, 0.8)';
+                        option.style.borderColor = 'rgb(34, 197, 94)';
+                    }
+                });
+            }
+            
+            // Show result
+            const resultDiv = document.getElementById('quizResult');
+            const resultText = document.getElementById('resultText');
+            
+            if (isCorrect) {
+                resultText.innerHTML = `
+                    <h4 class="font-bold text-green-300 mb-2 text-lg">🎉 Correct!</h4>
+                    <p class="text-slate-200">Great! You've understood the key concept behind Outcome Bias.</p>
+                `;
+            } else {
+                resultText.innerHTML = `
+                    <h4 class="font-bold text-red-300 mb-2 text-lg">Not quite right.</h4>
+                    <p class="text-slate-200">Review the explanation above to better understand Outcome Bias.</p>
+                `;
+            }
+            
+            resultDiv.classList.remove('hidden');
+            
+            // Save quiz score
+            const score = isCorrect ? 100 : 0;
+            let quizScores = JSON.parse(localStorage.getItem('quizScores') || '{}');
+            quizScores[20] = score;
+            localStorage.setItem('quizScores', JSON.stringify(quizScores));
+        }
+
+        function completeLesson() {
+            // Mark as completed
+            let progressData = JSON.parse(localStorage.getItem('biasProgress') || '{}');
+            progressData[20] = 'completed';
+            localStorage.setItem('biasProgress', JSON.stringify(progressData));
+            
+            // Show completion message
+            alert('🎉 Congratulations! You\'ve completed Outcome Bias. Your progress has been saved.');
+            
+            // Optionally navigate to next bias or back to hub
+            if (confirm('Would you like to continue to the next bias?')) {
+                window.location.href = 'bias-21.html';
+            } else {
+                window.location.href = 'bias-learning-hub.html';
+            }
+        }
+
+        function loadSuggestedQuestions() {
+            const questions = veniceAPI.getSuggestedQuestions('Outcome Bias');
+            const container = document.getElementById('suggestedQuestions');
+            
+            questions.forEach(question => {
+                const button = document.createElement('button');
+                button.className = 'exploration-button text-sm';
+                button.textContent = question;
+                button.onclick = () => exploreQuestion(question);
+                container.appendChild(button);
+            });
+        }
+
+        async function exploreCategory(category) {
+            showLoading();
+            
+            // Update active button
+            document.querySelectorAll('.exploration-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            try {
+                const response = await veniceAPI.generateDeepExploration(
+                    currentBias.title,
+                    currentBias.summary,
+                    category
+                );
+                showAIResponse(response);
+            } catch (error) {
+                showAIResponse("I apologize, but I'm having trouble connecting to the AI service right now. Please try again later.");
+            }
+        }
+
+        async function exploreCustom() {
+            const customPrompt = document.getElementById('customPrompt').value.trim();
+            if (!customPrompt) {
+                alert('Please enter a question or topic you\'d like to explore.');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                const response = await veniceAPI.generateCustomPrompt(
+                    currentBias.title,
+                    currentBias.summary,
+                    customPrompt
+                );
+                showAIResponse(response);
+            } catch (error) {
+                showAIResponse("I apologize, but I'm having trouble connecting to the AI service right now. Please try again later.");
+            }
+        }
+
+        async function exploreQuestion(question) {
+            showLoading();
+            
+            try {
+                const response = await veniceAPI.generateCustomPrompt(
+                    currentBias.title,
+                    currentBias.summary,
+                    question
+                );
+                showAIResponse(response);
+            } catch (error) {
+                showAIResponse("I apologize, but I'm having trouble connecting to the AI service right now. Please try again later.");
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('aiResponse').classList.add('hidden');
+        }
+
+        function showAIResponse(content) {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('responseContent').innerHTML = formatAIResponse(content);
+            document.getElementById('aiResponse').classList.remove('hidden');
+            
+            // Scroll to response
+            document.getElementById('aiResponse').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function formatAIResponse(content) {
+            // Enhanced markdown-like formatting for better readability
+            let formatted = content
+                // Handle headers
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                // Handle bold and italic
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                // Handle lists
+                .replace(/^\d+\.\s+(.*$)/gim, '<li>$1</li>')
+                .replace(/^[-*]\s+(.*$)/gim, '<li>$1</li>')
+                // Handle paragraphs
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>');
+            
+            // Wrap in paragraphs and fix lists
+            formatted = '<p>' + formatted + '</p>';
+            formatted = formatted.replace(/(<li>.*?<\/li>)/gs, (match) => {
+                const listItems = match.match(/<li>.*?<\/li>/g);
+                return '<ul>' + listItems.join('') + '</ul>';
+            });
+            
+            // Clean up extra paragraph tags
+            formatted = formatted.replace(/<p><\/p>/g, '');
+            formatted = formatted.replace(/<p>(<h[1-6]>)/g, '$1');
+            formatted = formatted.replace(/(<\/h[1-6]>)<\/p>/g, '$1');
+            formatted = formatted.replace(/<p>(<ul>)/g, '$1');
+            formatted = formatted.replace(/(<\/ul>)<\/p>/g, '$1');
+            
+            return formatted;
+        }
+
+        // Scroll progress tracking
+        window.addEventListener('scroll', updateProgress);
+        
+        // Initialize progress
+        updateProgress();
+    </script>
+</body>
+</html>

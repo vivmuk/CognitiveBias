@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Bias Learning Hub - The Art of Thinking Clearly</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="all-99-biases.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .bias-card {
+            background: rgba(51, 65, 85, 0.8);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            color: #f1f5f9;
+        }
+        
+        .bias-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(71, 85, 105, 0.9);
+        }
+        
+        .bias-card.completed {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3) 0%, rgba(22, 163, 74, 0.3) 100%);
+            border-left: 5px solid #22c55e;
+        }
+        
+        .bias-card.in-progress {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.3) 0%, rgba(245, 158, 11, 0.3) 100%);
+            border-left: 5px solid #fbbf24;
+        }
+        
+        .progress-ring {
+            transform: rotate(-90deg);
+            width: 120px;
+            height: 120px;
+        }
+        
+        .progress-circle {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        
+        .floating-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+        }
+        
+        .floating-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.4);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: rgba(51, 65, 85, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            color: #f1f5f9;
+        }
+        
+        .bias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .category-filter {
+            background: rgba(51, 65, 85, 0.6);
+            color: #f1f5f9;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-filter.active, .category-filter:hover {
+            background: rgba(99, 102, 241, 0.8);
+            color: white;
+            border-color: #6366f1;
+        }
+        
+        .search-box {
+            background: rgba(51, 65, 85, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 25px;
+            padding: 1rem 1.5rem;
+            color: #f1f5f9;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .search-box::placeholder {
+            color: rgba(148, 163, 184, 0.7);
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-8">
+            <h1 class="text-5xl font-bold text-white mb-4">
+                Cognitive Bias Learning Hub
+            </h1>
+            <p class="text-xl text-slate-300 mb-6">
+                Master the Art of Thinking Clearly - One Bias at a Time
+            </p>
+            <input type="text" id="searchBox" class="search-box" placeholder="Search biases..." onkeyup="filterBiases()">
+        </div>
+
+        <!-- Progress Dashboard -->
+        <div class="glass-card mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-white">Your Learning Progress</h2>
+                <div class="relative">
+                    <svg class="progress-ring">
+                        <circle class="progress-circle" cx="60" cy="60" r="52" 
+                                stroke="rgba(148,163,184,0.3)" id="progressBackground"></circle>
+                        <circle class="progress-circle" cx="60" cy="60" r="52"
+                                stroke="#6366f1" stroke-dasharray="327" stroke-dashoffset="327" id="progressForeground"></circle>
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span id="progressPercentage" class="text-2xl font-bold text-white">0%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="text-3xl font-bold mb-2 text-green-400" id="completedCount">0</div>
+                    <div class="text-sm text-slate-300">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="text-3xl font-bold mb-2 text-yellow-400" id="inProgressCount">0</div>
+                    <div class="text-sm text-slate-300">In Progress</div>
+                </div>
+                <div class="stat-card">
+                    <div class="text-3xl font-bold mb-2 text-blue-400" id="totalCount">99</div>
+                    <div class="text-sm text-slate-300">Total Biases</div>
+                </div>
+                <div class="stat-card">
+                    <div class="text-3xl font-bold mb-2 text-purple-400" id="averageScore">0%</div>
+                    <div class="text-sm text-slate-300">Quiz Average</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="text-center mb-6">
+            <button class="category-filter active" onclick="filterByCategory('all')">All Biases</button>
+            <button class="category-filter" onclick="filterByCategory('decision-making')">Decision Making</button>
+            <button class="category-filter" onclick="filterByCategory('social')">Social</button>
+            <button class="category-filter" onclick="filterByCategory('memory')">Memory</button>
+            <button class="category-filter" onclick="filterByCategory('probability')">Probability</button>
+        </div>
+
+        <!-- Bias Cards Grid -->
+        <div class="bias-grid" id="biasGrid">
+            <!-- Bias cards will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Floating Quick Stats Button -->
+    <button class="floating-button" onclick="resetProgress()" title="Reset Progress">
+        🔄 Reset Progress
+    </button>
+
+    <script>
+        // Progress tracking data
+        let progressData = JSON.parse(localStorage.getItem('biasProgress') || '{}');
+        let quizScores = JSON.parse(localStorage.getItem('quizScores') || '{}');
+
+        // Category and difficulty mapping function
+        function getBiasCategory(bias) {
+            const title = bias.title.toLowerCase();
+            const summary = bias.summary.toLowerCase();
+            const id = bias.id;
+            
+            // Probability/Statistical biases
+            if (title.includes('probability') || title.includes('base rate') || title.includes('gambler') ||
+                title.includes('regression') || title.includes('clustering') || title.includes('coincidence') ||
+                title.includes('law of small numbers') || title.includes('will rogers') || title.includes('problem with averages') ||
+                title.includes('black swan') || title.includes('exponential growth') || title.includes('neglect of probability') ||
+                title.includes('induction') || title.includes('survivorship') || title.includes('swimmer') ||
+                id === 1 || id === 2 || id === 3 || id === 19 || id === 24 || id === 26 || id === 27 || id === 28 || 
+                id === 33 || id === 55 || id === 58 || id === 61 || id === 75 || id === 95 || id === 96 || id === 97) {
+                return 'probability';
+            }
+            
+            // Social biases
+            if (title.includes('social') || title.includes('group') || title.includes('authority') ||
+                title.includes('reciprocity') || title.includes('liking') || title.includes('in-group') ||
+                title.includes('false-consensus') || title.includes('fundamental attribution') ||
+                title.includes('volunteer') || title.includes('social comparison') || title.includes('social loafing') ||
+                title.includes('envy') || title.includes('personification') || title.includes('strategic misrepresentation') ||
+                id === 4 || id === 6 || id === 9 || id === 18 || id === 22 || id === 25 || id === 32 || id === 35 || 
+                id === 36 || id === 37 || id === 38 || id === 65 || id === 66 || id === 72 || id === 77 || id === 79 || 
+                id === 86 || id === 87 || id === 89) {
+                return 'social';
+            }
+            
+            // Memory biases
+            if (title.includes('memory') || title.includes('hindsight') || title.includes('story') ||
+                title.includes('primacy') || title.includes('recency') || title.includes('sleeper') ||
+                title.includes('falsification of history') || title.includes('zeigarnik') ||
+                title.includes('illusion of attention') || title.includes('forer') || title.includes('expectations') ||
+                id === 13 || id === 14 || id === 43 || id === 46 || id === 62 || id === 64 || id === 70 || id === 73 || 
+                id === 78 || id === 88 || id === 93) {
+                return 'memory';
+            }
+            
+            // Decision-making biases (default category)
+            return 'decision-making';
+        }
+
+        function getBiasDifficulty(bias) {
+            const id = bias.id;
+            
+            // Advanced biases (complex concepts)
+            const advancedIds = [7, 8, 15, 18, 19, 24, 25, 33, 55, 56, 58, 75, 76, 91, 92, 94, 97, 98, 99];
+            if (advancedIds.includes(id)) {
+                return 'Advanced';
+            }
+            
+            // Beginner biases (simpler concepts)
+            const beginnerIds = [1, 2, 4, 6, 10, 13, 22];
+            if (beginnerIds.includes(id)) {
+                return 'Beginner';
+            }
+            
+            // Intermediate biases (everything else)
+            return 'Intermediate';
+        }
+
+        // Process all 99 biases and add category/difficulty
+        let allBiases = [];
+        if (typeof all99CognitiveBiases !== 'undefined') {
+            allBiases = all99CognitiveBiases.map(bias => ({
+                ...bias,
+                category: getBiasCategory(bias),
+                difficulty: getBiasDifficulty(bias)
+            }));
+        }
+
+        function initializePage() {
+            if (allBiases.length === 0) {
+                console.error('Biases not loaded. Make sure all-99-biases.js is loaded correctly.');
+                return;
+            }
+            updateProgressStats();
+            renderBiasCards(allBiases);
+            updateProgressRing();
+        }
+
+        function renderBiasCards(biases) {
+            const grid = document.getElementById('biasGrid');
+            grid.innerHTML = '';
+
+            biases.forEach(bias => {
+                const status = getStatus(bias.id);
+                const statusClass = status === 'completed' ? 'completed' : 
+                                 status === 'in-progress' ? 'in-progress' : '';
+                
+                const difficultyColor = {
+                    'Beginner': 'bg-green-500 text-white',
+                    'Intermediate': 'bg-yellow-500 text-white', 
+                    'Advanced': 'bg-red-500 text-white'
+                }[bias.difficulty];
+
+                const card = document.createElement('div');
+                card.className = `bias-card ${statusClass}`;
+                card.onclick = () => openBias(bias.id);
+                
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="text-sm font-semibold text-slate-400">#${bias.id}</div>
+                        <div class="flex gap-2">
+                            <span class="px-2 py-1 text-xs rounded-full ${difficultyColor}">${bias.difficulty}</span>
+                            ${status === 'completed' ? '<span class="text-green-400 text-lg">✓</span>' : 
+                              status === 'in-progress' ? '<span class="text-yellow-400 text-lg">⏳</span>' : ''}
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">${bias.title}</h3>
+                    <p class="text-sm text-slate-400 mb-3 italic">${bias.subtitle}</p>
+                    <p class="text-slate-300 text-sm leading-relaxed">${bias.summary}</p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="text-xs text-slate-500 capitalize">${bias.category.replace('-', ' ')}</span>
+                        <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors">
+                            Learn More →
+                        </button>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function filterBiases() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const activeCategory = document.querySelector('.category-filter.active').textContent.toLowerCase();
+            
+            let filteredBiases = allBiases;
+            
+            if (activeCategory !== 'all biases') {
+                const categoryMap = {
+                    'all biases': 'all',
+                    'decision making': 'decision-making',
+                    'social': 'social',
+                    'memory': 'memory',
+                    'probability': 'probability'
+                };
+                const category = categoryMap[activeCategory] || activeCategory.replace(' ', '-');
+                if (category !== 'all') {
+                    filteredBiases = filteredBiases.filter(bias => 
+                        bias.category === category
+                    );
+                }
+            }
+            
+            if (searchTerm) {
+                filteredBiases = filteredBiases.filter(bias =>
+                    bias.title.toLowerCase().includes(searchTerm) ||
+                    bias.summary.toLowerCase().includes(searchTerm) ||
+                    bias.subtitle.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            renderBiasCards(filteredBiases);
+        }
+
+        function filterByCategory(category) {
+            // Update active filter
+            document.querySelectorAll('.category-filter').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            filterBiases();
+        }
+
+        function getStatus(biasId) {
+            return progressData[biasId] || 'not-started';
+        }
+
+        function updateProgressStats() {
+            const completed = Object.values(progressData).filter(status => status === 'completed').length;
+            const inProgress = Object.values(progressData).filter(status => status === 'in-progress').length;
+            const scores = Object.values(quizScores);
+            const averageScore = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('inProgressCount').textContent = inProgress;
+            document.getElementById('averageScore').textContent = averageScore + '%';
+        }
+
+        function updateProgressRing() {
+            const completed = Object.values(progressData).filter(status => status === 'completed').length;
+            const percentage = Math.round((completed / 99) * 100);
+            const circumference = 2 * Math.PI * 52;
+            const offset = circumference - (percentage / 100) * circumference;
+            
+            document.getElementById('progressForeground').style.strokeDashoffset = offset;
+            document.getElementById('progressPercentage').textContent = percentage + '%';
+        }
+
+        function openBias(biasId) {
+            // Mark as in-progress if not already completed
+            if (!progressData[biasId] || progressData[biasId] === 'not-started') {
+                progressData[biasId] = 'in-progress';
+                localStorage.setItem('biasProgress', JSON.stringify(progressData));
+                updateProgressStats();
+                updateProgressRing();
+            }
+            
+            // Navigate to individual bias page
+            window.location.href = `bias-${biasId}.html`;
+        }
+
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                localStorage.removeItem('biasProgress');
+                localStorage.removeItem('quizScores');
+                progressData = {};
+                quizScores = {};
+                updateProgressStats();
+                updateProgressRing();
+                renderBiasCards(allBiases);
+            }
+        }
+
+        // Initialize page when DOM and scripts are loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                // Wait a bit for the script to load
+                setTimeout(initializePage, 100);
+            });
+        } else {
+            setTimeout(initializePage, 100);
+        }
+    </script>
+</body>
+</html> 

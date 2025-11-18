@@ -1,0 +1,7 @@
+# Netlify redirects file
+# Redirect root to main hub
+/ /bias-learning-hub.html 200
+
+# Redirect index to hub
+/index.html /bias-learning-hub.html 200
+

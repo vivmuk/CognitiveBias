@@ -1,0 +1,652 @@
+// Script to generate all bias HTML pages (26-99) from all-99-biases.js
+const fs = require('fs');
+const path = require('path');
+
+// Read the all-99-biases.js file to get the data
+const biasesFilePath = path.join(__dirname, 'all-99-biases.js');
+let biasesData = [];
+
+// We'll need to extract the data from the JS file
+// For now, we'll create a template that loads from all-99-biases.js dynamically
+
+function escapeHtml(text) {
+    if (!text) return '';
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function escapeJs(text) {
+    if (!text) return '';
+    return String(text)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/\n/g, '\\n')
+        .replace(/\r/g, '\\r');
+}
+
+function getDifficultyColor(difficulty) {
+    const colors = {
+        'Beginner': 'bg-green-500',
+        'Intermediate': 'bg-yellow-500',
+        'Advanced': 'bg-red-500'
+    };
+    return colors[difficulty] || 'bg-gray-500';
+}
+
+function getCategoryColor(category) {
+    const colors = {
+        'decision-making': 'bg-blue-500',
+        'social': 'bg-pink-500',
+        'memory': 'bg-purple-500',
+        'probability': 'bg-indigo-500'
+    };
+    return colors[category] || 'bg-gray-500';
+}
+
+function generateBiasPageHTML(biasId) {
+    const prevId = biasId === 1 ? 99 : biasId - 1;
+    const nextId = biasId === 99 ? 1 : biasId + 1;
+    
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Loading Bias #${biasId}... - Cognitive Bias Learning Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="all-99-biases.js"></script>
+    <script src="venice-api.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+        
+        .main-content {
+            margin-right: 140px;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-content {
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Floating Navigation -->
+    <div class="floating-nav">
+        <a href="#overview" class="nav-item active" onclick="scrollToSection('overview')">Overview</a>
+        <a href="#details" class="nav-item" onclick="scrollToSection('details')">Details</a>
+        <a href="#examples" class="nav-item" onclick="scrollToSection('examples')">Examples</a>
+        <a href="#quiz" class="nav-item" onclick="scrollToSection('quiz')">Quiz</a>
+        <a href="#explore" class="nav-item" onclick="scrollToSection('explore')">Explore</a>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 main-content">
+        <!-- Navigation Bar -->
+        <div class="navigation-bar">
+            <div class="flex justify-between items-center text-white">
+                <a href="bias-learning-hub.html" class="flex items-center space-x-2 hover:opacity-80">
+                    <span>←</span>
+                    <span>Back to Hub</span>
+                </a>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm opacity-80" id="biasCounter">Bias #${biasId} of 99</span>
+                    <div class="flex space-x-2">
+                        <a href="bias-${prevId}.html" class="px-3 py-1 bg-slate-600 bg-opacity-50 rounded hover:bg-opacity-70">← Previous</a>
+                        <a href="bias-${nextId}.html" class="px-3 py-1 bg-slate-600 bg-opacity-50 rounded hover:bg-opacity-70">Next →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <section id="overview" class="content-card">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-white mb-4" id="biasTitle">Loading...</h1>
+                <p class="text-xl text-slate-300 italic mb-6" id="biasSubtitle">Loading...</p>
+                <div class="flex justify-center items-center space-x-4 mb-6" id="biasBadges">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-4">What is it?</h3>
+                    <p class="text-slate-300 leading-relaxed mb-6" id="biasSummary">Loading...</p>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-4">Why it matters</h3>
+                    <p class="text-slate-300 leading-relaxed" id="biasExplanation">Loading...</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 p-6 rounded-lg border border-indigo-500/30">
+                    <h3 class="text-xl font-bold text-white mb-4">Key Insight</h3>
+                    <blockquote class="text-lg text-slate-200 italic border-l-4 border-indigo-500 pl-4" id="biasExample">
+                        Loading...
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Explanation Section -->
+        <section id="details" class="content-card">
+            <h2 class="text-3xl font-bold text-white mb-6" id="detailsTitle">How This Bias Works</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-orange-500/20 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                    <h3 class="text-xl font-bold text-orange-300 mb-3">The Mechanism</h3>
+                    <p class="text-slate-300" id="mechanismText">Loading...</p>
+                </div>
+                
+                <div class="bg-cyan-500/20 border-l-4 border-cyan-500 p-6 rounded-r-lg">
+                    <h3 class="text-xl font-bold text-cyan-300 mb-3">How to Detect It</h3>
+                    <p class="text-slate-300 mb-3" id="detectionText">Loading...</p>
+                </div>
+                
+                <div class="bg-green-500/20 border-l-4 border-green-500 p-6 rounded-r-lg">
+                    <h3 class="text-xl font-bold text-green-300 mb-3">Countermeasures</h3>
+                    <ul class="list-disc list-inside text-slate-300 space-y-2" id="countermeasuresList">
+                        <!-- Will be populated by JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Real-World Examples Section -->
+        <section id="examples" class="content-card">
+            <h2 class="text-3xl font-bold text-white mb-6">Real-World Example</h2>
+            
+            <div class="bg-blue-500/20 p-6 rounded-lg border border-blue-500/30">
+                <h3 class="text-xl font-bold text-blue-300 mb-3">📝 Case Study</h3>
+                <p class="text-slate-300" id="exampleText">Loading...</p>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="quiz-container">
+            <h2 class="text-3xl font-bold mb-6">Test Your Understanding</h2>
+            
+            <div id="quizContent">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-4" id="quizQuestion">Loading question...</h3>
+                    
+                    <div class="space-y-3" id="quizOptions">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div id="quizResult" class="hidden mt-6 p-4 rounded-lg border-2 border-white border-opacity-30 bg-slate-700/50">
+                    <div id="resultText"></div>
+                    <button onclick="completeLesson()" 
+                            class="mt-4 px-6 py-3 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition-colors">
+                        Mark as Complete & Continue
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deep Exploration Section -->
+        <section id="explore" class="deep-dive-section">
+            <h2 class="text-3xl font-bold mb-6">Explore Deeper with AI</h2>
+            <p class="text-lg mb-6 opacity-90">
+                Use AI to explore this bias from different perspectives and get personalized insights.
+            </p>
+            
+            <!-- Exploration Categories -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4">Choose an exploration focus:</h3>
+                <div class="flex flex-wrap">
+                    <button class="exploration-button" onclick="exploreCategory('business')">
+                        🏢 Business Impact
+                    </button>
+                    <button class="exploration-button" onclick="exploreCategory('personal')">
+                        👤 Personal Life
+                    </button>
+                    <button class="exploration-button" onclick="exploreCategory('scientific')">
+                        🔬 Scientific Research
+                    </button>
+                    <button class="exploration-button" onclick="exploreCategory('historical')">
+                        📚 Historical Examples
+                    </button>
+                    <button class="exploration-button" onclick="exploreCategory('general')">
+                        🧠 Deep Psychology
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Custom Prompt Area -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4">Or ask your own question:</h3>
+                <textarea class="custom-prompt-area" placeholder="Ask anything about this bias..." id="customPrompt"></textarea>
+                <button onclick="exploreCustom()" class="exploration-button">
+                    💬 Get AI Insights
+                </button>
+            </div>
+            
+            <!-- Suggested Questions -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4">Quick questions to explore:</h3>
+                <div class="space-y-2" id="suggestedQuestions">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- AI Response Area -->
+            <div id="aiResponse" class="hidden">
+                <h3 class="text-xl font-bold mb-4 text-indigo-300">🤖 AI Insights:</h3>
+                <div id="responseContent" class="ai-response-viewer">
+                    <!-- AI response will be inserted here -->
+                </div>
+            </div>
+            
+            <!-- Loading State -->
+            <div id="loadingState" class="hidden text-center py-8">
+                <div class="loading-spinner mx-auto mb-4"></div>
+                <p class="text-lg">Generating deep insights...</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Initialize Venice API
+        const veniceAPI = new VeniceAPIService();
+        let currentBias = null;
+        const BIAS_ID = ${biasId};
+        
+        // Load bias data
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBiasData();
+        });
+
+        function loadBiasData() {
+            // Wait for all99CognitiveBiases to be available
+            if (typeof all99CognitiveBiases === 'undefined') {
+                setTimeout(loadBiasData, 100);
+                return;
+            }
+            
+            const bias = all99CognitiveBiases.find(b => b.id === BIAS_ID);
+            if (!bias) {
+                document.body.innerHTML = '<div class="container mx-auto px-4 py-8"><h1 class="text-4xl text-white">Bias #' + BIAS_ID + ' not found</h1><p class="text-slate-300">Please check the all-99-biases.js file.</p></div>';
+                return;
+            }
+            
+            currentBias = bias;
+            populatePage(bias);
+        }
+
+        function populatePage(bias) {
+            // Update page title
+            document.getElementById('pageTitle').textContent = bias.title + ' - Cognitive Bias Learning Hub';
+            
+            // Update overview section
+            document.getElementById('biasTitle').textContent = bias.title;
+            document.getElementById('biasSubtitle').textContent = bias.subtitle;
+            document.getElementById('biasSummary').textContent = bias.summary;
+            document.getElementById('biasExplanation').textContent = bias.detailedExplanation;
+            document.getElementById('biasExample').textContent = '"' + bias.realWorldExample + '"';
+            
+            // Update badges
+            const badgesDiv = document.getElementById('biasBadges');
+            const difficulty = getBiasDifficulty(bias);
+            const category = getBiasCategory(bias);
+            badgesDiv.innerHTML = \`
+                <span class="px-3 py-1 \${getDifficultyColorClass(difficulty)} text-white rounded-full text-sm font-medium">\${difficulty}</span>
+                <span class="px-3 py-1 \${getCategoryColorClass(category)} text-white rounded-full text-sm font-medium">\${category}</span>
+                <span class="px-3 py-1 bg-gray-500 text-white rounded-full text-sm font-medium">Chapter \${bias.id}</span>
+            \`;
+            
+            // Update details section
+            document.getElementById('detailsTitle').textContent = 'How ' + bias.title + ' Works';
+            document.getElementById('mechanismText').textContent = bias.detailedExplanation;
+            document.getElementById('detectionText').textContent = bias.howToDetect;
+            
+            // Update countermeasures
+            const countermeasuresList = document.getElementById('countermeasuresList');
+            countermeasuresList.innerHTML = '';
+            bias.countermeasures.forEach(countermeasure => {
+                const li = document.createElement('li');
+                li.textContent = countermeasure;
+                countermeasuresList.appendChild(li);
+            });
+            
+            // Update example
+            document.getElementById('exampleText').textContent = bias.realWorldExample;
+            
+            // Update quiz
+            document.getElementById('quizQuestion').textContent = bias.quiz.question;
+            const quizOptions = document.getElementById('quizOptions');
+            quizOptions.innerHTML = '';
+            
+            // Add incorrect options
+            bias.quiz.incorrect.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'quiz-option w-full text-left';
+                button.textContent = option;
+                button.onclick = () => selectAnswer(button, false);
+                quizOptions.appendChild(button);
+            });
+            
+            // Add correct option
+            const correctButton = document.createElement('button');
+            correctButton.className = 'quiz-option w-full text-left';
+            correctButton.textContent = bias.quiz.correct;
+            correctButton.onclick = () => selectAnswer(correctButton, true);
+            quizOptions.appendChild(correctButton);
+            
+            // Shuffle options
+            const options = Array.from(quizOptions.children);
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+            }
+            quizOptions.innerHTML = '';
+            options.forEach(option => quizOptions.appendChild(option));
+            
+            // Update custom prompt placeholder
+            document.getElementById('customPrompt').placeholder = 'Ask anything about ' + bias.title + '...';
+            
+            // Load suggested questions
+            loadSuggestedQuestions();
+            updateProgress();
+        }
+
+        function getBiasDifficulty(bias) {
+            const id = bias.id;
+            const advancedIds = [7, 8, 15, 18, 19, 24, 25, 33, 55, 56, 58, 75, 76, 91, 92, 94, 97, 98, 99];
+            if (advancedIds.includes(id)) return 'Advanced';
+            const beginnerIds = [1, 2, 4, 6, 10, 13, 22];
+            if (beginnerIds.includes(id)) return 'Beginner';
+            return 'Intermediate';
+        }
+
+        function getBiasCategory(bias) {
+            const title = bias.title.toLowerCase();
+            const id = bias.id;
+            
+            if (title.includes('probability') || title.includes('base rate') || title.includes('gambler') ||
+                title.includes('regression') || title.includes('clustering') || title.includes('coincidence') ||
+                title.includes('survivorship') || title.includes('swimmer') ||
+                id === 1 || id === 2 || id === 3 || id === 19 || id === 24 || id === 26 || id === 27 || id === 28 || 
+                id === 33 || id === 55 || id === 58 || id === 61 || id === 75 || id === 95 || id === 96 || id === 97) {
+                return 'probability';
+            }
+            
+            if (title.includes('social') || title.includes('group') || title.includes('authority') ||
+                title.includes('reciprocity') || title.includes('liking') || title.includes('in-group') ||
+                id === 4 || id === 6 || id === 9 || id === 18 || id === 22 || id === 25 || id === 32 || id === 35 || 
+                id === 36 || id === 37 || id === 38 || id === 65 || id === 66 || id === 72 || id === 77 || id === 79 || 
+                id === 86 || id === 87 || id === 89) {
+                return 'social';
+            }
+            
+            if (title.includes('memory') || title.includes('hindsight') || title.includes('story') ||
+                title.includes('primacy') || title.includes('recency') ||
+                id === 13 || id === 14 || id === 43 || id === 46 || id === 62 || id === 64 || id === 70 || id === 73 || 
+                id === 78 || id === 88 || id === 93) {
+                return 'memory';
+            }
+            
+            return 'decision-making';
+        }
+
+        function getDifficultyColorClass(difficulty) {
+            const colors = {
+                'Beginner': 'bg-green-500',
+                'Intermediate': 'bg-yellow-500',
+                'Advanced': 'bg-red-500'
+            };
+            return colors[difficulty] || 'bg-gray-500';
+        }
+
+        function getCategoryColorClass(category) {
+            const colors = {
+                'decision-making': 'bg-blue-500',
+                'social': 'bg-pink-500',
+                'memory': 'bg-purple-500',
+                'probability': 'bg-indigo-500'
+            };
+            return colors[category] || 'bg-gray-500';
+        }
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(\`[href="#\${sectionId}"]\`).classList.add('active');
+        }
+
+        function updateProgress() {
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            const progress = (scrollPosition / (documentHeight - windowHeight)) * 100;
+            document.getElementById('progressFill').style.width = \`\${Math.min(progress, 100)}%\`;
+        }
+
+        function selectAnswer(button, isCorrect) {
+            // Disable all options
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.disabled = true;
+                option.style.cursor = 'default';
+            });
+            
+            // Style the selected answer
+            if (isCorrect) {
+                button.style.background = 'rgba(34, 197, 94, 0.8)';
+                button.style.borderColor = 'rgb(34, 197, 94)';
+            } else {
+                button.style.background = 'rgba(239, 68, 68, 0.8)';
+                button.style.borderColor = 'rgb(239, 68, 68)';
+                
+                // Highlight the correct answer
+                document.querySelectorAll('.quiz-option').forEach(option => {
+                    if (option.onclick && option.onclick.toString().includes('true')) {
+                        option.style.background = 'rgba(34, 197, 94, 0.8)';
+                        option.style.borderColor = 'rgb(34, 197, 94)';
+                    }
+                });
+            }
+            
+            // Show result
+            const resultDiv = document.getElementById('quizResult');
+            const resultText = document.getElementById('resultText');
+            
+            if (isCorrect) {
+                resultText.innerHTML = \`
+                    <h4 class="font-bold text-green-300 mb-2 text-lg">🎉 Correct!</h4>
+                    <p class="text-slate-200">Great! You've understood the key concept behind \${currentBias.title}.</p>
+                \`;
+            } else {
+                resultText.innerHTML = \`
+                    <h4 class="font-bold text-red-300 mb-2 text-lg">Not quite right.</h4>
+                    <p class="text-slate-200">Review the explanation above to better understand \${currentBias.title}.</p>
+                \`;
+            }
+            
+            resultDiv.classList.remove('hidden');
+            
+            // Save quiz score
+            const score = isCorrect ? 100 : 0;
+            let quizScores = JSON.parse(localStorage.getItem('quizScores') || '{}');
+            quizScores[BIAS_ID] = score;
+            localStorage.setItem('quizScores', JSON.stringify(quizScores));
+        }
+
+        function completeLesson() {
+            // Mark as completed
+            let progressData = JSON.parse(localStorage.getItem('biasProgress') || '{}');
+            progressData[BIAS_ID] = 'completed';
+            localStorage.setItem('biasProgress', JSON.stringify(progressData));
+            
+            // Show completion message
+            alert('🎉 Congratulations! You\\'ve completed ' + currentBias.title + '. Your progress has been saved.');
+            
+            // Optionally navigate to next bias or back to hub
+            const nextId = BIAS_ID === 99 ? 1 : BIAS_ID + 1;
+            if (confirm('Would you like to continue to the next bias?')) {
+                window.location.href = 'bias-' + nextId + '.html';
+            } else {
+                window.location.href = 'bias-learning-hub.html';
+            }
+        }
+
+        function loadSuggestedQuestions() {
+            const questions = veniceAPI.getSuggestedQuestions(currentBias.title);
+            const container = document.getElementById('suggestedQuestions');
+            container.innerHTML = '';
+            
+            questions.forEach(question => {
+                const button = document.createElement('button');
+                button.className = 'exploration-button text-sm';
+                button.textContent = question;
+                button.onclick = () => exploreQuestion(question);
+                container.appendChild(button);
+            });
+        }
+
+        async function exploreCategory(category) {
+            showLoading();
+            
+            // Update active button
+            document.querySelectorAll('.exploration-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            try {
+                const response = await veniceAPI.generateDeepExploration(
+                    currentBias.title,
+                    currentBias.summary,
+                    category
+                );
+                showAIResponse(response);
+            } catch (error) {
+                showAIResponse("I apologize, but I'm having trouble connecting to the AI service right now. Please try again later.");
+            }
+        }
+
+        async function exploreCustom() {
+            const customPrompt = document.getElementById('customPrompt').value.trim();
+            if (!customPrompt) {
+                alert('Please enter a question or topic you\\'d like to explore.');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                const response = await veniceAPI.generateCustomPrompt(
+                    currentBias.title,
+                    currentBias.summary,
+                    customPrompt
+                );
+                showAIResponse(response);
+            } catch (error) {
+                showAIResponse("I apologize, but I'm having trouble connecting to the AI service right now. Please try again later.");
+            }
+        }
+
+        async function exploreQuestion(question) {
+            showLoading();
+            
+            try {
+                const response = await veniceAPI.generateCustomPrompt(
+                    currentBias.title,
+                    currentBias.summary,
+                    question
+                );
+                showAIResponse(response);
+            } catch (error) {
+                showAIResponse("I apologize, but I'm having trouble connecting to the AI service right now. Please try again later.");
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('aiResponse').classList.add('hidden');
+        }
+
+        function showAIResponse(content) {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('responseContent').innerHTML = formatAIResponse(content);
+            document.getElementById('aiResponse').classList.remove('hidden');
+            
+            // Scroll to response
+            document.getElementById('aiResponse').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function formatAIResponse(content) {
+            // Enhanced markdown-like formatting for better readability
+            let formatted = content
+                // Handle headers
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                // Handle bold and italic
+                .replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')
+                .replace(/\\*(.*?)\\*/g, '<em>$1</em>')
+                // Handle lists
+                .replace(/^\\d+\\.\\s+(.*$)/gim, '<li>$1</li>')
+                .replace(/^[-*]\\s+(.*$)/gim, '<li>$1</li>')
+                // Handle paragraphs
+                .replace(/\\n\\n/g, '</p><p>')
+                .replace(/\\n/g, '<br>');
+            
+            // Wrap in paragraphs and fix lists
+            formatted = '<p>' + formatted + '</p>';
+            formatted = formatted.replace(/(<li>.*?<\\/li>)/gs, (match) => {
+                const listItems = match.match(/<li>.*?<\\/li>/g);
+                return '<ul>' + listItems.join('') + '</ul>';
+            });
+            
+            // Clean up extra paragraph tags
+            formatted = formatted.replace(/<p><\\/p>/g, '');
+            formatted = formatted.replace(/<p>(<h[1-6]>)/g, '$1');
+            formatted = formatted.replace(/(<\\/h[1-6]>)<\\/p>/g, '$1');
+            formatted = formatted.replace(/<p>(<ul>)/g, '$1');
+            formatted = formatted.replace(/(<\\/ul>)<\\/p>/g, '$1');
+            
+            return formatted;
+        }
+
+        // Scroll progress tracking
+        window.addEventListener('scroll', updateProgress);
+        
+        // Initialize progress
+        updateProgress();
+    </script>
+</body>
+</html>`;
+}
+
+// Generate all pages from 26 to 99
+console.log('Generating bias pages 26-99...');
+
+for (let i = 26; i <= 99; i++) {
+    const html = generateBiasPageHTML(i);
+    const filePath = path.join(__dirname, `bias-${i}.html`);
+    fs.writeFileSync(filePath, html, 'utf8');
+    console.log(`Generated bias-${i}.html`);
+}
+
+console.log('Done! Generated all pages from 26 to 99.');
+
