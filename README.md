@@ -11,6 +11,12 @@ A comprehensive interactive learning platform for exploring all 99 cognitive bia
 - 🎯 **Interactive Quizzes** - Test your understanding of each bias
 - 💡 **Real-World Examples** - Practical case studies for each bias
 
+## 🚀 Live Deployment
+
+**Deployed on Netlify**: [View Live Site](https://your-site-name.netlify.app)
+
+The site is ready for deployment. See [NETLIFY-DEPLOY.md](./NETLIFY-DEPLOY.md) for deployment instructions.
+
 ## Quick Start
 
 ### Option 1: Simple File Opening
@@ -54,6 +60,9 @@ The platform uses Venice AI for deep exploration of cognitive biases. Each bias 
 ├── venice-api.js               # Venice AI integration
 ├── styles.css                  # Styling
 ├── test-venice-api.html         # API test page
+├── netlify.toml                # Netlify configuration
+├── _redirects                   # Netlify redirects
+├── index.html                   # Landing page (redirects to hub)
 ├── generate-all-bias-pages.js  # Script to generate bias pages
 └── update-existing-pages.js   # Script to update existing pages
 ```
