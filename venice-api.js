@@ -2,8 +2,8 @@
 class VeniceAPIService {
     constructor() {
         this.apiKey = 'ntmhtbP2fr_pOQsmuLPuN_nm6lm2INWKiNcvrdEfEC';
-        this.baseURL = 'https://api.venice.ai/api/v1/chat/completions';
-        this.model = 'llama-3.1-405b'; // Using the Llama 405B model as requested
+        this.baseURL = 'https://api.venice.ai/v1/chat/completions';
+        this.model = 'qwen80'; // Using Qwen 80 model
     }
 
     async generateDeepExploration(biasTitle, biasDescription, explorationType = 'general') {
