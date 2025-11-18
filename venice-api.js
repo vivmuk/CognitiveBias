@@ -146,6 +146,18 @@ Explore:
             console.error('Error calling Venice API:', error);
             console.error('Request URL:', this.baseURL);
             console.error('Model:', this.model);
+            console.error('Error type:', error.name);
+            console.error('Error message:', error.message);
+            console.error('Current origin:', window.location.origin);
+            
+            // Check if it's a network/CORS error
+            if (error.name === 'TypeError' || error.message.includes('Failed to fetch')) {
+                console.error('This might be a CORS or network issue. Check:');
+                console.error('1. Is the API endpoint correct?');
+                console.error('2. Does Venice AI allow requests from this origin?');
+                console.error('3. Check browser Network tab for preflight OPTIONS request');
+            }
+            
             return this.getFallbackContent(explorationType);
         }
     }
@@ -226,6 +238,18 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
             console.error('Error calling Venice API:', error);
             console.error('Request URL:', this.baseURL);
             console.error('Model:', this.model);
+            console.error('Error type:', error.name);
+            console.error('Error message:', error.message);
+            console.error('Current origin:', window.location.origin);
+            
+            // Check if it's a network/CORS error
+            if (error.name === 'TypeError' || error.message.includes('Failed to fetch')) {
+                console.error('This might be a CORS or network issue. Check:');
+                console.error('1. Is the API endpoint correct?');
+                console.error('2. Does Venice AI allow requests from this origin?');
+                console.error('3. Check browser Network tab for preflight OPTIONS request');
+            }
+            
             return "I apologize, but I'm having trouble connecting to the AI service right now. Please try again later or explore one of the predefined categories.";
         }
     }
