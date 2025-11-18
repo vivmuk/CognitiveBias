@@ -57,14 +57,24 @@ The project includes:
 
 ## Environment Variables
 
-If you need to set environment variables (like API keys):
+**IMPORTANT**: You MUST set the Venice API key as an environment variable for security!
 
 1. Go to Railway dashboard
 2. Select your project
 3. Go to "Variables" tab
-4. Add variables:
-   - `PORT` (optional, Railway sets this automatically)
-   - `VENICE_API_KEY` (if you want to move API key to env vars)
+4. Click "New Variable"
+5. Add:
+   - **Name**: `VENICE_API_KEY`
+   - **Value**: `lnWNeSg0pA_rQUooNpbfpPDBaj2vJnWol5WqKWrIEF` (your actual API key)
+6. Click "Add"
+
+**Why?**
+- The API key is now stored securely server-side
+- It's never exposed to the client/browser
+- The Express server proxies API requests, keeping the key safe
+- This also solves CORS issues!
+
+**Note**: `PORT` is set automatically by Railway - you don't need to set it.
 
 ## Custom Domain
 

@@ -1,8 +1,9 @@
 // Venice AI API Service for Cognitive Bias Deep Exploration
 class VeniceAPIService {
     constructor() {
-        this.apiKey = 'lnWNeSg0pA_rQUooNpbfpPDBaj2vJnWol5WqKWrIEF';
-        this.baseURL = 'https://api.venice.ai/api/v1/chat/completions';
+        // Use proxy endpoint if available (for production), otherwise direct API
+        // The proxy keeps the API key secure on the server
+        this.baseURL = '/api/venice'; // Proxy endpoint on Railway server
         this.model = 'venice-uncensored'; // Using Venice Uncensored model
     }
 

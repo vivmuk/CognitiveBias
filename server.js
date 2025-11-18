@@ -4,6 +4,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Middleware to parse JSON bodies
+app.use(express.json());
+
 // Serve static files from the current directory
 app.use(express.static(path.join(__dirname)));
 
@@ -20,6 +23,39 @@ app.get('/index.html', (req, res) => {
 // Health check endpoint for Railway
 app.get('/health', (req, res) => {
     res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Proxy endpoint for Venice AI API (keeps API key secure server-side)
+app.post('/api/venice', async (req, res) => {
+    const apiKey = process.env.VENICE_API_KEY || 'lnWNeSg0pA_rQUooNpbfpPDBaj2vJnWol5WqKWrIEF';
+    
+    if (!apiKey) {
+        return res.status(500).json({ 
+            error: 'Venice API key not configured. Set VENICE_API_KEY environment variable.' 
+        });
+    }
+
+    try {
+        const response = await fetch('https://api.venice.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(req.body)
+        });
+
+        const data = await response.json();
+
+        // Forward the status code and data
+        res.status(response.status).json(data);
+    } catch (error) {
+        console.error('Venice API proxy error:', error);
+        res.status(500).json({ 
+            error: 'Failed to connect to Venice AI API',
+            message: error.message 
+        });
+    }
 });
 
 // Start server
