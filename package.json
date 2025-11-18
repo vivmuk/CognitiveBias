@@ -1,0 +1,24 @@
+{
+  "name": "cognitive-bias-learning-hub",
+  "version": "1.0.0",
+  "description": "Interactive learning platform for 99 cognitive biases with AI-powered exploration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "cognitive-biases",
+    "education",
+    "psychology",
+    "learning"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

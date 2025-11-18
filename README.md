@@ -13,9 +13,11 @@ A comprehensive interactive learning platform for exploring all 99 cognitive bia
 
 ## 🚀 Live Deployment
 
-**Deployed on Netlify**: [View Live Site](https://your-site-name.netlify.app)
+**Deployed on Railway**: [View Live Site](https://your-app-name.up.railway.app)
 
-The site is ready for deployment. See [NETLIFY-DEPLOY.md](./NETLIFY-DEPLOY.md) for deployment instructions.
+The site is ready for deployment. See [RAILWAY-DEPLOY.md](./RAILWAY-DEPLOY.md) for deployment instructions.
+
+**Alternative**: Also supports Netlify deployment. See [NETLIFY-DEPLOY.md](./NETLIFY-DEPLOY.md) for Netlify instructions.
 
 ## Quick Start
 
