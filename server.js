@@ -36,13 +36,23 @@ app.post('/api/venice', async (req, res) => {
     }
 
     try {
+        // Ensure venice_parameters are included if not present
+        const requestBody = { ...req.body };
+        if (!requestBody.venice_parameters) {
+            requestBody.venice_parameters = {
+                enable_web_search: "auto",
+                enable_web_citations: true,
+                include_venice_system_prompt: true
+            };
+        }
+
         const response = await fetch('https://api.venice.ai/api/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(req.body)
+            body: JSON.stringify(requestBody)
         });
 
         const data = await response.json();

@@ -4,25 +4,42 @@ class VeniceAPIService {
         // Use proxy endpoint if available (for production), otherwise direct API
         // The proxy keeps the API key secure on the server
         this.baseURL = '/api/venice'; // Proxy endpoint on Railway server
-        this.model = 'venice-uncensored'; // Using Venice Uncensored model
+        this.model = 'qwen3-next-80b'; // Using Qwen3 Next 80B model with web search
     }
 
     async generateDeepExploration(biasTitle, biasDescription, explorationType = 'general') {
         const prompts = {
-            general: `As an expert in cognitive psychology and behavioral economics, provide a comprehensive deep dive into "${biasTitle}". 
+            general: `As an expert in cognitive psychology, neuroscience, and behavioral economics, provide a comprehensive deep dive into "${biasTitle}". 
 
 Context: ${biasDescription}
 
-Please provide:
-1. Advanced psychological mechanisms behind this bias
-2. Neurological basis and brain regions involved
-3. Evolutionary origins and adaptive value
-4. Modern contexts where this bias is most problematic
-5. Advanced strategies for mitigation beyond basic awareness
-6. Connections to other cognitive biases and psychological phenomena
-7. Real-world case studies from business, politics, or science
+Please provide a detailed exploration covering:
 
-Make this engaging and practical for someone who wants to truly master their thinking.`,
+**NEUROSCIENCE & BRAIN IMPACT (Most Important Section):**
+1. Which specific brain regions and neural networks are involved in this bias?
+2. What neurotransmitters and neural pathways are activated?
+3. How does this bias manifest at the neuronal level?
+4. What brain imaging studies (fMRI, EEG, PET scans) reveal about this bias?
+5. How does this bias affect brain plasticity and neural connections?
+6. What are the evolutionary neurological reasons this bias exists?
+7. How does the brain's reward system, threat detection, or memory systems contribute?
+
+**PSYCHOLOGICAL MECHANISMS:**
+8. Advanced psychological mechanisms behind this bias
+9. Cognitive processes and mental shortcuts involved
+10. Connections to other cognitive biases and psychological phenomena
+
+**PRACTICAL APPLICATIONS:**
+11. Modern contexts where this bias is most problematic
+12. Advanced strategies for mitigation beyond basic awareness
+13. Real-world case studies from business, politics, or science
+
+**SCIENTIFIC EVIDENCE:**
+14. Latest research findings and studies
+15. Experimental evidence demonstrating this bias
+16. Cross-cultural and individual differences
+
+Make this engaging, scientifically accurate, and practical. Focus heavily on the neuroscience - explain exactly how the brain is impacted and what happens at the neural level.`,
 
             business: `Analyze "${biasTitle}" specifically from a business and entrepreneurial perspective.
 
@@ -50,18 +67,37 @@ Cover:
 6. Personal reflection questions for self-assessment
 7. Long-term strategies for personal growth and better decision-making`,
 
-            scientific: `Examine "${biasTitle}" from a scientific research and evidence-based perspective.
+            scientific: `Examine "${biasTitle}" from a scientific research, neuroscience, and evidence-based perspective.
 
 Context: ${biasDescription}
 
-Include:
-1. Key research studies and findings
-2. Experimental designs that demonstrate this bias
-3. Statistical measures and effect sizes
-4. Cross-cultural variations and universality
-5. Individual differences and personality factors
-6. Latest neuroscience research
-7. Ongoing debates and controversies in the field`,
+**NEUROSCIENCE & BRAIN RESEARCH (Primary Focus):**
+1. Brain imaging studies (fMRI, EEG, PET, MEG) that show neural activity during this bias
+2. Specific brain regions involved (prefrontal cortex, amygdala, hippocampus, etc.)
+3. Neural pathways and networks activated
+4. Neurotransmitter systems involved (dopamine, serotonin, cortisol, etc.)
+5. How this bias affects brain structure and function over time
+6. Neuroplasticity and how this bias shapes neural connections
+7. Genetic and epigenetic factors influencing this bias
+8. Brain development and when this bias emerges neurologically
+
+**EXPERIMENTAL EVIDENCE:**
+9. Key research studies and findings
+10. Experimental designs that demonstrate this bias
+11. Statistical measures and effect sizes
+12. Replication studies and meta-analyses
+
+**INDIVIDUAL & CULTURAL DIFFERENCES:**
+13. Cross-cultural variations and universality
+14. Individual differences and personality factors
+15. Age-related changes in neural processing
+
+**CURRENT RESEARCH:**
+16. Latest neuroscience research and breakthroughs
+17. Ongoing debates and controversies in the field
+18. Future research directions
+
+Provide specific citations and reference recent peer-reviewed studies when possible.`,
 
             historical: `Analyze "${biasTitle}" through historical examples and cultural contexts.
 
@@ -91,8 +127,13 @@ Explore:
                     }
                 ],
                 temperature: 0.7,
-                max_tokens: 2048,
-                top_p: 0.9
+                max_tokens: 3000, // Increased for more detailed neuroscience content
+                top_p: 0.9,
+                venice_parameters: {
+                    enable_web_search: "auto", // Enable web search for accurate, up-to-date information
+                    enable_web_citations: true, // Request citations for sources
+                    include_venice_system_prompt: true
+                }
             };
             
             console.log('=== Venice API Request ===');
@@ -186,8 +227,13 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
                     }
                 ],
                 temperature: 0.7,
-                max_tokens: 1500,
-                top_p: 0.9
+                max_tokens: 2500, // Increased for detailed responses
+                top_p: 0.9,
+                venice_parameters: {
+                    enable_web_search: "auto", // Enable web search for accurate, up-to-date information
+                    enable_web_citations: true, // Request citations for sources
+                    include_venice_system_prompt: true
+                }
             };
             
             console.log('=== Venice API Request (Custom) ===');
