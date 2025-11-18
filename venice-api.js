@@ -77,12 +77,16 @@ Explore:
         };
 
         try {
+            // Get the prompt content
+            const promptContent = prompts[explorationType] || prompts.general;
+            
+            // Build request body matching Venice API format exactly
             const requestBody = {
                 model: this.model,
                 messages: [
                     {
                         role: 'user',
-                        content: prompts[explorationType] || prompts.general
+                        content: promptContent
                     }
                 ],
                 temperature: 0.7,
@@ -93,12 +97,9 @@ Explore:
             console.log('=== Venice API Request ===');
             console.log('URL:', this.baseURL);
             console.log('Method: POST');
-            console.log('Headers:', {
-                'Authorization': `Bearer ${this.apiKey.substring(0, 10)}...`,
-                'Content-Type': 'application/json'
-            });
+            console.log('Model:', this.model);
             console.log('Request Body:', JSON.stringify(requestBody, null, 2));
-            console.log('Prompt length:', (prompts[explorationType] || prompts.general).length, 'characters');
+            console.log('Prompt preview:', promptContent.substring(0, 100) + '...');
             
             const response = await fetch(this.baseURL, {
                 method: 'POST',
@@ -111,7 +112,12 @@ Explore:
             
             console.log('=== Venice API Response ===');
             console.log('Status:', response.status, response.statusText);
-            console.log('Headers:', Object.fromEntries(response.headers.entries()));
+            console.log('Status Text:', response.statusText);
+            console.log('OK:', response.ok);
+            
+            // Get response text first to see what we're getting
+            const responseText = await response.text();
+            console.log('Response Text:', responseText);
 
             if (!response.ok) {
                 // Try to get error details from response
@@ -148,6 +154,7 @@ User's specific question or area of interest: ${customPrompt}
 Please provide a thoughtful, detailed response that combines scientific accuracy with practical insights. Make it engaging and actionable.`;
 
         try {
+            // Build request body matching Venice API format exactly
             const requestBody = {
                 model: this.model,
                 messages: [
@@ -164,12 +171,9 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
             console.log('=== Venice API Request (Custom) ===');
             console.log('URL:', this.baseURL);
             console.log('Method: POST');
-            console.log('Headers:', {
-                'Authorization': `Bearer ${this.apiKey.substring(0, 10)}...`,
-                'Content-Type': 'application/json'
-            });
+            console.log('Model:', this.model);
             console.log('Request Body:', JSON.stringify(requestBody, null, 2));
-            console.log('Prompt length:', fullPrompt.length, 'characters');
+            console.log('Prompt preview:', fullPrompt.substring(0, 100) + '...');
             
             const response = await fetch(this.baseURL, {
                 method: 'POST',
@@ -182,7 +186,11 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
             
             console.log('=== Venice API Response (Custom) ===');
             console.log('Status:', response.status, response.statusText);
-            console.log('Headers:', Object.fromEntries(response.headers.entries()));
+            console.log('OK:', response.ok);
+            
+            // Get response text first
+            const responseText = await response.text();
+            console.log('Response Text:', responseText);
 
             if (!response.ok) {
                 // Try to get error details from response
