@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venice API Direct Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #e2e8f0;
+        }
+        .test-section {
+            background: rgba(30, 41, 59, 0.7);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        button {
+            background: #4f46e5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #4338ca;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+        .info { color: #60a5fa; }
+    </style>
+</head>
+<body>
+    <h1>Venice API Direct Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Configuration</h2>
+        <p><strong>Endpoint:</strong> <span id="endpoint">https://api.venice.ai/api/v1/chat/completions</span></p>
+        <p><strong>Model:</strong> <span id="model">venice-uncensored</span></p>
+        <p><strong>API Key:</strong> <span id="apiKey">ntmhtbP2fr_pOQsmuLPuN_nm6lm2INWKiNcvrdEfEC</span></p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test Requests</h2>
+        <button onclick="testSimple()">Test Simple Request</button>
+        <button onclick="testWithSystem()">Test with System Message</button>
+        <button onclick="testFull()">Test Full Request</button>
+        <button onclick="testCORS()">Test CORS</button>
+    </div>
+    
+    <div id="result"></div>
+
+    <script>
+        const API_KEY = 'ntmhtbP2fr_pOQsmuLPuN_nm6lm2INWKiNcvrdEfEC';
+        const BASE_URL = 'https://api.venice.ai/api/v1/chat/completions';
+        const MODEL = 'venice-uncensored';
+
+        function log(message, type = 'info') {
+            const result = document.getElementById('result');
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : 'info';
+            result.innerHTML += `<div class="${className}">${new Date().toLocaleTimeString()}: ${message}</div>`;
+            result.scrollTop = result.scrollHeight;
+        }
+
+        async function testSimple() {
+            log('Testing simple request...', 'info');
+            try {
+                const response = await fetch(BASE_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${API_KEY}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: MODEL,
+                        messages: [
+                            { role: 'user', content: 'Hello, say hi back in one sentence.' }
+                        ]
+                    })
+                });
+                
+                log(`Response Status: ${response.status} ${response.statusText}`, response.ok ? 'success' : 'error');
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    log(`Error Response: ${errorText}`, 'error');
+                    return;
+                }
+                
+                const data = await response.json();
+                log(`Success! Response: ${JSON.stringify(data, null, 2)}`, 'success');
+            } catch (error) {
+                log(`Exception: ${error.message}`, 'error');
+                console.error('Full error:', error);
+            }
+        }
+
+        async function testWithSystem() {
+            log('Testing with system message...', 'info');
+            try {
+                const response = await fetch(BASE_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${API_KEY}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: MODEL,
+                        messages: [
+                            { role: 'system', content: 'You are a helpful AI assistant' },
+                            { role: 'user', content: 'Why is privacy important?' }
+                        ]
+                    })
+                });
+                
+                log(`Response Status: ${response.status} ${response.statusText}`, response.ok ? 'success' : 'error');
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    log(`Error Response: ${errorText}`, 'error');
+                    return;
+                }
+                
+                const data = await response.json();
+                log(`Success! Response: ${data.choices[0].message.content}`, 'success');
+            } catch (error) {
+                log(`Exception: ${error.message}`, 'error');
+                console.error('Full error:', error);
+            }
+        }
+
+        async function testFull() {
+            log('Testing full request with all parameters...', 'info');
+            try {
+                const response = await fetch(BASE_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${API_KEY}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: MODEL,
+                        messages: [
+                            { role: 'user', content: 'Explain cognitive bias in one paragraph.' }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 500,
+                        top_p: 0.9
+                    })
+                });
+                
+                log(`Response Status: ${response.status} ${response.statusText}`, response.ok ? 'success' : 'error');
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    log(`Error Response: ${errorText}`, 'error');
+                    return;
+                }
+                
+                const data = await response.json();
+                log(`Success! Response: ${data.choices[0].message.content}`, 'success');
+            } catch (error) {
+                log(`Exception: ${error.message}`, 'error');
+                console.error('Full error:', error);
+            }
+        }
+
+        async function testCORS() {
+            log('Testing CORS preflight...', 'info');
+            try {
+                // Test OPTIONS request
+                const optionsResponse = await fetch(BASE_URL, {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Authorization': `Bearer ${API_KEY}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                log(`OPTIONS Response Status: ${optionsResponse.status}`, optionsResponse.ok ? 'success' : 'error');
+                log(`CORS Headers: ${JSON.stringify([...optionsResponse.headers.entries()])}`, 'info');
+            } catch (error) {
+                log(`CORS Test Exception: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-run simple test on load
+        window.addEventListener('load', () => {
+            log('Page loaded. Ready to test.', 'info');
+        });
+    </script>
+</body>
+</html>
+
