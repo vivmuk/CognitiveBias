@@ -129,12 +129,42 @@ h6 {
     font-weight: 700;
     margin-bottom: 0.5rem;
     line-height: 1.3;
+    color: var(--text-on-dark);
+}
+
+.bias-summary {
+    color: var(--muted-on-dark);
+}
+
+.bias-card .text-slate-400 {
+    color: var(--muted-on-dark);
+}
+
+.bias-card .text-indigo-600 {
+    color: #c7d2fe;
+}
+
+.bias-card .border-slate-100 {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.status-badge {
     font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.25rem 0.75rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
     border-radius: 999px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid transparent;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.status-badge:hover {
+    transform: translateY(-1px) scale(1.01);
 }
 
 .status-completed {
@@ -179,10 +209,11 @@ h6 {
     border-radius: 50px;
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--text-on-dark);
     cursor: pointer;
     transition: all 0.3s ease;
     user-select: none;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .filter-chip:hover {
@@ -193,7 +224,7 @@ h6 {
 }
 
 .filter-chip.active {
-    background: var(--accent-primary);
+    background: linear-gradient(135deg, #4338ca, #312e81);
     color: white;
     border-color: var(--accent-primary);
     box-shadow: 0 12px 30px rgba(99, 102, 241, 0.35);
