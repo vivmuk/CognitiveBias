@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cognitive Bias Learning Hub</title>
-
+    
     <!-- Favicon and App Icons -->
     <link rel="icon" type="image/x-icon" href="Cog/favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="Cog/favicon-16x16.png">
@@ -58,12 +58,12 @@
                     class="w-8 h-8 rounded-sm flex items-center justify-center text-white font-bold shadow-lg"
                     style="background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);">
                     C</div>
-                <span class="text-xl font-bold tracking-tight" style="color: var(--text-primary);">Cognitive Bias Hub</span>
+                <span class="text-xl font-bold tracking-tight" style="color: #0c1226;">Cognitive Bias Hub</span>
             </div>
-            <div class="flex gap-8 text-sm font-medium" style="color: var(--text-secondary);">
-                <a href="#" class="pb-1 transition-colors" style="color: var(--accent-primary); border-bottom: 2px solid var(--accent-primary);">Library</a>
-                <a href="dashboard.html" class="transition-colors hover:opacity-80" style="color: var(--accent-primary);">Dashboard</a>
-                <a href="#" class="transition-colors opacity-50 cursor-not-allowed" style="color: var(--accent-primary);">Tools</a>
+            <div class="flex gap-8 text-sm font-medium" style="color: #4a5568;">
+                <a href="#" class="pb-1 transition-colors" style="color: #06b6d4; border-bottom: 2px solid #06b6d4;">Library</a>
+                <a href="dashboard.html" class="transition-colors hover:opacity-80" style="color: #06b6d4;">Dashboard</a>
+                <a href="#" class="transition-colors opacity-50 cursor-not-allowed" style="color: #06b6d4;">Tools</a>
             </div>
         </div>
     </nav>
@@ -84,7 +84,7 @@
             <div class="search-container">
                 <input type="text" id="searchBox" class="search-input"
                     placeholder="Search for a bias (e.g., 'Anchoring', 'Sunk Cost')..." onkeyup="filterBiases()">
-                <div class="absolute right-4 top-1/2 transform -translate-y-1/2" style="color: var(--text-secondary);">
+                <div class="absolute right-4 top-1/2 transform -translate-y-1/2" style="color: #4a5568;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -202,7 +202,7 @@
             grid.innerHTML = '';
 
             if (biases.length === 0) {
-                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-lg" style="color: var(--text-secondary);">No biases found matching your search.</p></div>';
+                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-lg" style="color: #4a5568;">No biases found matching your search.</p></div>';
                 return;
             }
 
@@ -219,9 +219,10 @@
                 const borderColor = getCardBorderColor(bias.category);
                 const accentColor = getCardAccentColor(bias.category);
 
-                card.style.background = `linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%), ${cardGradient}`;
+                card.style.background = `linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%), ${cardGradient}`;
                 card.style.borderColor = borderColor;
                 card.style.setProperty('--card-accent', accentColor);
+                card.style.color = '#0c1226';
 
                 card.onclick = () => {
                     card.style.transform = "scale(0.95)";
@@ -254,7 +255,7 @@
                         <span class="bias-id" style="background: linear-gradient(135deg, ${accentColor}20, ${accentColor}10); border-color: ${accentColor}40; color: ${accentColor};">#${bias.id.toString().padStart(2, '0')}</span>
                         ${statusBadge}
                     </div>
-                    <h3 class="bias-title" style="color: var(--text-primary);">${bias.title}</h3>
+                    <h3 class="bias-title" style="color: #0c1226 !important;">${bias.title}</h3>
                     ${bias.subtitle ? `<p class="text-sm mb-2" style="color: ${accentColor}; font-weight: 500; font-style: italic; font-family: 'Montserrat', sans-serif;">${bias.subtitle}</p>` : ''}
                     <p class="bias-summary">${bias.summary}</p>
                     <div class="bias-card-footer">
