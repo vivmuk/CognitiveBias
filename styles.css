@@ -4,26 +4,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&family=JetBrains+Mono:wght@400&display=swap');
 
 :root {
-    /* Professional Palette */
-    --bg-primary: #f8fafc;
-    /* Slate 50 */
-    --bg-secondary: #ffffff;
-    --text-primary: #0f172a;
-    /* Slate 900 */
-    --text-secondary: #475569;
-    /* Slate 600 */
-    --accent-primary: #312e81;
-    /* Indigo 900 - The "Suit" Color */
-    --accent-secondary: #b45309;
-    /* Amber 700 - The "Gold" Accent */
+    /* Dark Professional Palette */
+    --bg-primary: #0b1220;
+    --bg-secondary: #141d2f;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --accent-primary: #6366f1;
+    /* Indigo 500 */
+    --accent-secondary: #f59e0b;
+    /* Amber 500 */
     --success: #059669;
     /* Emerald 600 */
     --warning: #d97706;
     /* Amber 600 */
 
     /* Fun/Interaction Variables */
-    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --card-hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    --card-hover-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
     --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -46,14 +43,14 @@ h6 {
 
 /* --- Navigation --- */
 .nav-glass {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(11, 18, 32, 0.92);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
 }
 
 /* --- Hero Section --- */
 .hero-gradient {
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1f2937 40%, #312e81 100%);
     color: white;
     position: relative;
     overflow: hidden;
@@ -65,21 +62,22 @@ h6 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
     background-size: 30px 30px;
-    opacity: 0.3;
+    opacity: 0.35;
 }
 
 /* --- Premium Cards (The "Consultant Slide" Look) --- */
 .bias-card {
     background: var(--bg-secondary);
-    border: 1px solid #e2e8f0;
+    border: 1px solid rgba(148, 163, 184, 0.14);
     border-radius: 12px;
     padding: 1.5rem;
     position: relative;
     transition: all 0.4s var(--transition-bounce);
     cursor: pointer;
     overflow: hidden;
+    box-shadow: var(--card-shadow);
 }
 
 .bias-card::before {
@@ -97,7 +95,7 @@ h6 {
 .bias-card:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: var(--card-hover-shadow);
-    border-color: var(--accent-primary);
+    border-color: rgba(99, 102, 241, 0.7);
 }
 
 .bias-card:hover::before {
@@ -120,9 +118,10 @@ h6 {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
     color: var(--text-secondary);
-    background: #f1f5f9;
+    background: rgba(255, 255, 255, 0.05);
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .bias-title {
@@ -139,13 +138,13 @@ h6 {
 }
 
 .status-completed {
-    background-color: #d1fae5;
-    color: #065f46;
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
 }
 
 .status-progress {
-    background-color: #fef3c7;
-    color: #92400e;
+    background-color: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
 }
 
 /* --- Search & Filter --- */
@@ -158,23 +157,24 @@ h6 {
 .search-input {
     width: 100%;
     padding: 1rem 1.5rem;
-    border: 2px solid #e2e8f0;
+    border: 2px solid rgba(148, 163, 184, 0.25);
     border-radius: 50px;
     font-size: 1rem;
     transition: all 0.3s ease;
-    background: white;
+    background: rgba(15, 23, 42, 0.8);
+    color: var(--text-primary);
     box-shadow: var(--card-shadow);
 }
 
 .search-input:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 4px rgba(49, 46, 129, 0.1);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
 }
 
 .filter-chip {
-    background: white;
-    border: 1px solid #e2e8f0;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.25);
     padding: 0.5rem 1.25rem;
     border-radius: 50px;
     font-size: 0.9rem;
@@ -186,16 +186,17 @@ h6 {
 }
 
 .filter-chip:hover {
-    background: #f8fafc;
-    border-color: var(--accent-primary);
+    background: rgba(99, 102, 241, 0.08);
+    border-color: rgba(99, 102, 241, 0.6);
     transform: translateY(-2px);
+    color: var(--text-primary);
 }
 
 .filter-chip.active {
     background: var(--accent-primary);
     color: white;
     border-color: var(--accent-primary);
-    box-shadow: 0 4px 12px rgba(49, 46, 129, 0.3);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.35);
 }
 
 /* --- Animations --- */
