@@ -4,16 +4,10 @@
   publish = "."
 
 [[redirects]]
-  # Redirect root to the main hub
-  from = "/"
-  to = "/bias-learning-hub.html"
-  status = 200
-
-[[redirects]]
-  # Redirect index.html to hub
-  from = "/index.html"
-  to = "/bias-learning-hub.html"
-  status = 200
+  # Root and index.html now contain the full learning hub content
+  from = "/bias-learning-hub.html"
+  to = "/index.html"
+  status = 301
 
 # Headers for CORS and security
 [[headers]]
