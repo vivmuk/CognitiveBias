@@ -9,141 +9,221 @@
     <link rel="icon" type="image/x-icon" href="Cog/favicon.ico">
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
     
     <style>
-        /* Dashboard specific overrides */
+        :root {
+            --midnight: #0b1021;
+            --ink: #121730;
+            --frost: rgba(255, 255, 255, 0.06);
+            --glow: rgba(255, 255, 255, 0.12);
+            --accent: #7ce7cf;
+            --amber: #f0c86e;
+            --rose: #f28f8f;
+            --azure: #7cb7ff;
+        }
+
         body {
-            background-color: #f8fafc; /* Light professional background */
-            color: #1e293b;
+            background: var(--midnight);
+            color: #e8ebf7;
+            font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            position: relative;
+            overflow-x: hidden;
         }
-        .dashboard-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease;
+
+        .dashboard-shell {
+            backdrop-filter: blur(16px);
+            background: linear-gradient(135deg, var(--frost), transparent);
+            border: 1px solid var(--glow);
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
         }
-        .dashboard-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+        .dashboard-shell:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .surface-ring {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 10% 20%, rgba(124, 231, 207, 0.18), transparent 25%),
+                        radial-gradient(circle at 90% 30%, rgba(124, 183, 255, 0.12), transparent 30%),
+                        radial-gradient(circle at 50% 80%, rgba(240, 200, 110, 0.12), transparent 25%);
+            filter: blur(60px);
+            opacity: 0.75;
+        }
+
+        .divider-glow {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans">
+<body class="text-slate-100 min-h-screen">
+    <div class="surface-ring"></div>
 
     <!-- Navigation -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <nav class="sticky top-0 z-50 bg-[rgba(12,18,36,0.9)] backdrop-blur-xl border-b border-white/10">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-indigo-900 rounded-sm flex items-center justify-center text-white font-serif font-bold">C</div>
-                <span class="font-serif text-xl font-bold text-slate-900 tracking-tight">Cognitive Bias Hub</span>
+                <div class="w-9 h-9 bg-white/10 border border-white/15 rounded-xl flex items-center justify-center text-sm font-semibold text-white tracking-tight">CB</div>
+                <span class="text-lg font-semibold text-white tracking-tight">Cognitive Bias Hub</span>
             </div>
-            <div class="flex gap-8 text-sm font-medium text-slate-600">
-                <a href="bias-learning-hub.html" class="hover:text-indigo-900 transition-colors">Library</a>
-                <a href="dashboard.html" class="text-indigo-900 border-b-2 border-indigo-900 pb-1">Dashboard</a>
-                <a href="#" class="hover:text-indigo-900 transition-colors opacity-50 cursor-not-allowed">Tools (Coming Soon)</a>
+            <div class="flex gap-6 text-sm font-medium text-slate-200">
+                <a href="bias-learning-hub.html" class="hover:text-white transition-colors">Library</a>
+                <a href="dashboard.html" class="text-white border-b-2 border-white pb-1">Dashboard</a>
+                <a href="#" class="hover:text-white transition-colors opacity-50 cursor-not-allowed">Tools (Soon)</a>
             </div>
         </div>
     </nav>
 
-    <div class="container mx-auto px-6 py-12">
+    <div class="container mx-auto px-6 py-14 relative">
         <!-- Header -->
-        <div class="mb-12">
-            <h1 class="font-serif text-4xl font-bold text-slate-900 mb-2">Executive Dashboard</h1>
-            <p class="text-slate-500 text-lg font-light">Your cognitive mastery overview.</p>
+        <div class="mb-12 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div>
+                <p class="text-sm uppercase tracking-[0.25em] text-slate-400">Learning hub dashboard</p>
+                <h1 class="text-4xl lg:text-5xl font-semibold text-white mt-3">Executive insight at a glance</h1>
+                <p class="text-slate-300 mt-4 max-w-2xl leading-relaxed">Curated signals to keep you immersed, motivated, and celebrating wins as you move through every cognitive bias.</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="text-right">
+                    <p class="text-xs uppercase tracking-wide text-slate-400">Consistency streak</p>
+                    <p class="text-3xl font-semibold text-white">7 days</p>
+                </div>
+                <div class="h-12 w-px bg-white/15"></div>
+                <button onclick="window.location.href='bias-learning-hub.html'" class="px-5 py-3 rounded-full bg-white text-slate-900 font-semibold shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5 transition">Return to Library</button>
+            </div>
         </div>
 
         <!-- Main Stats Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-            <div class="dashboard-card p-6 rounded-lg border-l-4 border-indigo-900">
-                <div class="text-sm text-slate-500 uppercase tracking-wider mb-1">Total Mastery</div>
-                <div class="text-4xl font-bold text-slate-900" id="totalProgress">0%</div>
-                <div class="text-xs text-slate-400 mt-2">of 99 Biases</div>
-            </div>
-            
-            <div class="dashboard-card p-6 rounded-lg border-l-4 border-emerald-600">
-                <div class="text-sm text-slate-500 uppercase tracking-wider mb-1">Completed</div>
-                <div class="text-4xl font-bold text-emerald-700" id="completedCount">0</div>
-                <div class="text-xs text-slate-400 mt-2">Biases Analyzed</div>
-            </div>
-
-            <div class="dashboard-card p-6 rounded-lg border-l-4 border-amber-500">
-                <div class="text-sm text-slate-500 uppercase tracking-wider mb-1">In Progress</div>
-                <div class="text-4xl font-bold text-amber-600" id="inProgressCount">0</div>
-                <div class="text-xs text-slate-400 mt-2">Active Studies</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div class="dashboard-shell p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <div class="text-xs uppercase tracking-[0.2em] text-slate-400">Total Mastery</div>
+                        <div class="text-4xl font-semibold text-white mt-1" id="totalProgress">0%</div>
+                    </div>
+                    <div class="h-12 w-12 rounded-full bg-emerald-400/10 border border-emerald-300/30 flex items-center justify-center text-emerald-200 text-lg">◎</div>
+                </div>
+                <div class="h-1 w-full rounded-full bg-white/5 overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-emerald-400 to-emerald-300" style="width: 0%" id="totalBar"></div>
+                </div>
+                <p class="text-xs text-slate-400 mt-3">Progress across all 99 biases</p>
             </div>
 
-            <div class="dashboard-card p-6 rounded-lg border-l-4 border-blue-500">
-                <div class="text-sm text-slate-500 uppercase tracking-wider mb-1">Quiz Avg</div>
-                <div class="text-4xl font-bold text-blue-600" id="quizAverage">0%</div>
-                <div class="text-xs text-slate-400 mt-2">Retention Rate</div>
+            <div class="dashboard-shell p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <div class="text-xs uppercase tracking-[0.2em] text-slate-400">Completed</div>
+                        <div class="text-4xl font-semibold text-emerald-200 mt-1" id="completedCount">0</div>
+                    </div>
+                    <div class="h-12 w-12 rounded-full bg-emerald-400/10 border border-emerald-300/30 flex items-center justify-center text-emerald-200 text-lg">✓</div>
+                </div>
+                <p class="text-sm text-slate-300">Biases analyzed</p>
+            </div>
+
+            <div class="dashboard-shell p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <div class="text-xs uppercase tracking-[0.2em] text-slate-400">In Progress</div>
+                        <div class="text-4xl font-semibold text-amber-200 mt-1" id="inProgressCount">0</div>
+                    </div>
+                    <div class="h-12 w-12 rounded-full bg-amber-300/10 border border-amber-200/30 flex items-center justify-center text-amber-200 text-lg">↻</div>
+                </div>
+                <p class="text-sm text-slate-300">Active explorations</p>
+            </div>
+
+            <div class="dashboard-shell p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <div class="text-xs uppercase tracking-[0.2em] text-slate-400">Quiz Avg</div>
+                        <div class="text-4xl font-semibold text-sky-100 mt-1" id="quizAverage">0%</div>
+                    </div>
+                    <div class="h-12 w-12 rounded-full bg-sky-300/10 border border-sky-200/30 flex items-center justify-center text-sky-100 text-lg">★</div>
+                </div>
+                <p class="text-sm text-slate-300">Retention rate</p>
             </div>
         </div>
 
         <!-- Detailed Progress Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
+
             <!-- Recent Activity / Focus -->
-            <div class="lg:col-span-2 dashboard-card rounded-lg p-8">
-                <h3 class="font-serif text-2xl font-bold text-slate-900 mb-6">Strategic Focus Areas</h3>
-                
+            <div class="lg:col-span-2 dashboard-shell rounded-2xl p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Momentum map</p>
+                        <h3 class="text-2xl font-semibold text-white">Strategic Focus Areas</h3>
+                    </div>
+                    <div class="flex gap-2 items-center text-sm text-slate-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
+                        Live progress pulses
+                    </div>
+                </div>
+
                 <div class="space-y-6">
                     <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium text-slate-700">Decision Making</span>
-                            <span class="text-slate-500" id="decisionProgress">0/0</span>
+                        <div class="flex justify-between mb-2 text-sm">
+                            <span class="font-semibold text-white">Decision Making</span>
+                            <span class="text-slate-400" id="decisionProgress">0/0</span>
                         </div>
-                        <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-indigo-900 w-0 transition-all duration-1000" id="decisionBar"></div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium text-slate-700">Social Dynamics</span>
-                            <span class="text-slate-500" id="socialProgress">0/0</span>
-                        </div>
-                        <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-emerald-600 w-0 transition-all duration-1000" id="socialBar"></div>
+                        <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-emerald-400 to-emerald-200 w-0 transition-all duration-1000" id="decisionBar"></div>
                         </div>
                     </div>
 
                     <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium text-slate-700">Memory & Recall</span>
-                            <span class="text-slate-500" id="memoryProgress">0/0</span>
+                        <div class="flex justify-between mb-2 text-sm">
+                            <span class="font-semibold text-white">Social Dynamics</span>
+                            <span class="text-slate-400" id="socialProgress">0/0</span>
                         </div>
-                        <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-amber-500 w-0 transition-all duration-1000" id="memoryBar"></div>
+                        <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-sky-300 to-emerald-200 w-0 transition-all duration-1000" id="socialBar"></div>
                         </div>
                     </div>
 
                     <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium text-slate-700">Probability & Logic</span>
-                            <span class="text-slate-500" id="probProgress">0/0</span>
+                        <div class="flex justify-between mb-2 text-sm">
+                            <span class="font-semibold text-white">Memory & Recall</span>
+                            <span class="text-slate-400" id="memoryProgress">0/0</span>
                         </div>
-                        <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-500 w-0 transition-all duration-1000" id="probBar"></div>
+                        <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-amber-300 to-orange-200 w-0 transition-all duration-1000" id="memoryBar"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between mb-2 text-sm">
+                            <span class="font-semibold text-white">Probability & Logic</span>
+                            <span class="text-slate-400" id="probProgress">0/0</span>
+                        </div>
+                        <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-indigo-200 to-sky-300 w-0 transition-all duration-1000" id="probBar"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Quick Actions -->
-            <div class="dashboard-card rounded-lg p-8 bg-slate-900 text-white">
-                <h3 class="font-serif text-2xl font-bold mb-6 text-white">Actions</h3>
-                <p class="text-slate-400 mb-8">Reset your cognitive baseline or export your learning data.</p>
-                
-                <button onclick="resetProgress()" class="w-full py-3 px-4 bg-red-600 hover:bg-red-700 text-white rounded transition-colors font-medium mb-4 flex items-center justify-center gap-2">
+            <div class="dashboard-shell rounded-2xl p-8 bg-white/5 border border-white/10">
+                <p class="text-xs uppercase tracking-[0.2em] text-slate-300 mb-3">Actions</p>
+                <h3 class="text-2xl font-semibold text-white mb-4">Stay in flow</h3>
+                <p class="text-slate-300 mb-8 leading-relaxed">Reset your baseline, revisit the library, or pulse your focus without breaking momentum.</p>
+
+                <button onclick="resetProgress()" class="w-full py-3 px-4 bg-gradient-to-r from-rose-400 to-amber-300 text-slate-900 font-semibold rounded-xl transition hover:shadow-[0_15px_50px_rgba(242,143,143,0.35)] mb-3 flex items-center justify-center gap-2">
                     <span>↺</span> Reset All Progress
                 </button>
-                
-                <button onclick="window.location.href='bias-learning-hub.html'" class="w-full py-3 px-4 bg-white text-slate-900 hover:bg-slate-100 rounded transition-colors font-medium flex items-center justify-center gap-2">
+
+                <button onclick="window.location.href='bias-learning-hub.html'" class="w-full py-3 px-4 bg-white/10 text-white border border-white/15 hover:border-white/25 rounded-xl transition font-semibold flex items-center justify-center gap-2">
                     <span>→</span> Return to Library
                 </button>
+
+                <div class="mt-8 h-px divider-glow"></div>
+                <p class="text-xs text-slate-400 mt-4">Tip: small daily reps build long-term bias immunity. Keep your streak alive.</p>
             </div>
         </div>
     </div>
@@ -163,10 +243,14 @@
             const avgScore = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : 0;
 
             // Update DOM
-            document.getElementById('totalProgress').textContent = Math.round((completed/total)*100) + '%';
+            const totalPercent = Math.round((completed/total)*100);
+            document.getElementById('totalProgress').textContent = totalPercent + '%';
             document.getElementById('completedCount').textContent = completed;
             document.getElementById('inProgressCount').textContent = inProgress;
             document.getElementById('quizAverage').textContent = avgScore + '%';
+
+            const totalBar = document.getElementById('totalBar');
+            if (totalBar) totalBar.style.width = `${totalPercent}%`;
 
             // Category Stats (Need bias data for this)
             if (typeof all99CognitiveBiases !== 'undefined') {
@@ -182,33 +266,30 @@
                 'probability': { total: 0, completed: 0, elId: 'prob' }
             };
 
-            // Helper to determine category (copied logic from hub)
-            function getCat(bias) {
-                 const t = bias.title.toLowerCase();
-                 const id = bias.id;
-                 // Simplified logic for dashboard display - matching the main hub's logic roughly
-                 if (t.includes('probability') || t.includes('base rate') || [1,2,3].includes(id)) return 'probability';
-                 if (t.includes('social') || t.includes('group') || [4,6,9].includes(id)) return 'social';
-                 if (t.includes('memory') || t.includes('hindsight') || [13,14].includes(id)) return 'memory';
-                 return 'decision-making'; // Default
+            function getCat(id) {
+                if (id <= 25) return 'decision-making';
+                if (id <= 50) return 'social';
+                if (id <= 75) return 'memory';
+                return 'probability';
             }
 
             biases.forEach(bias => {
-                // We need to use the EXACT same categorization logic as the main hub for accuracy
-                // For now, we will rely on the main hub's logic if we can import it, 
-                // or just do a simple pass. 
-                // actually, let's just count what we have.
-                // Since we don't have the complex logic here, let's just use a placeholder or simple logic.
-                // To be accurate, I should copy the getBiasCategory function.
-                
-                // ... (Copying simplified version for display)
-                let cat = 'decision-making';
-                // ... (We will refine this in a shared utility later if needed)
+                const cat = getCat(bias.id);
+                const category = categories[cat];
+                category.total += 1;
+                const status = progressData[bias.id];
+                if (status === 'completed') {
+                    category.completed += 1;
+                }
             });
-            
-            // For this iteration, we'll just animate the bars to random 'simulated' values 
-            // if we can't easily match the complex logic, OR we just show global stats.
-            // Let's show global stats for now to be safe.
+
+            Object.values(categories).forEach(category => {
+                const percent = category.total ? Math.round((category.completed / category.total) * 100) : 0;
+                const progressEl = document.getElementById(`${category.elId}Progress`);
+                const barEl = document.getElementById(`${category.elId}Bar`);
+                if (progressEl) progressEl.textContent = `${category.completed}/${category.total}`;
+                if (barEl) barEl.style.width = `${percent}%`;
+            });
         }
 
         function resetProgress() {
