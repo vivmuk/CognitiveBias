@@ -8,10 +8,14 @@
     --bg-primary: #f8fafc;
     /* Slate 50 */
     --bg-secondary: #ffffff;
+    --surface-dark: #0c1220;
+    --surface-darker: #0a0f1a;
     --text-primary: #0f172a;
     /* Slate 900 */
     --text-secondary: #475569;
     /* Slate 600 */
+    --text-on-dark: #e2e8f0;
+    --muted-on-dark: #cbd5e1;
     --accent-primary: #312e81;
     /* Indigo 900 - The "Suit" Color */
     --accent-secondary: #b45309;
@@ -72,8 +76,9 @@ h6 {
 
 /* --- Premium Cards (The "Consultant Slide" Look) --- */
 .bias-card {
-    background: var(--bg-secondary);
-    border: 1px solid #e2e8f0;
+    background: var(--surface-dark);
+    color: var(--text-on-dark);
+    border: 1px solid #1f2937;
     border-radius: 12px;
     padding: 1.5rem;
     position: relative;
@@ -96,8 +101,9 @@ h6 {
 
 .bias-card:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--card-hover-shadow);
-    border-color: var(--accent-primary);
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.35);
+    border-color: rgba(99, 102, 241, 0.4);
+    background: linear-gradient(135deg, var(--surface-dark), var(--surface-darker));
 }
 
 .bias-card:hover::before {
@@ -119,10 +125,11 @@ h6 {
 .bias-id {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    color: var(--text-secondary);
-    background: #f1f5f9;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
+    color: var(--text-on-dark);
+    background: rgba(148, 163, 184, 0.12);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid rgba(148, 163, 184, 0.3);
 }
 
 .bias-title {
@@ -130,22 +137,56 @@ h6 {
     font-weight: 700;
     margin-bottom: 0.5rem;
     line-height: 1.3;
+    color: var(--text-on-dark);
+}
+
+.bias-summary {
+    color: var(--muted-on-dark);
+}
+
+.bias-card .text-slate-400 {
+    color: var(--muted-on-dark);
+}
+
+.bias-card .text-indigo-600 {
+    color: #c7d2fe;
+}
+
+.bias-card .border-slate-100 {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.status-badge {
     font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.25rem 0.75rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
     border-radius: 999px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid transparent;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.status-badge:hover {
+    transform: translateY(-1px) scale(1.01);
 }
 
 .status-completed {
-    background-color: #d1fae5;
-    color: #065f46;
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #a7f3d0;
+    border-color: rgba(16, 185, 129, 0.6);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
 }
 
 .status-progress {
-    background-color: #fef3c7;
-    color: #92400e;
+    background-color: rgba(251, 191, 36, 0.18);
+    color: #fef9c3;
+    border-color: rgba(251, 191, 36, 0.6);
+    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.2);
 }
 
 /* --- Search & Filter --- */
@@ -173,29 +214,31 @@ h6 {
 }
 
 .filter-chip {
-    background: white;
-    border: 1px solid #e2e8f0;
+    background: var(--surface-darker);
+    border: 1px solid #1f2937;
     padding: 0.5rem 1.25rem;
     border-radius: 50px;
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--text-on-dark);
     cursor: pointer;
     transition: all 0.3s ease;
     user-select: none;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .filter-chip:hover {
-    background: #f8fafc;
-    border-color: var(--accent-primary);
+    background: #111827;
+    border-color: rgba(99, 102, 241, 0.4);
     transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.28);
 }
 
 .filter-chip.active {
-    background: var(--accent-primary);
+    background: linear-gradient(135deg, #4338ca, #312e81);
     color: white;
-    border-color: var(--accent-primary);
-    box-shadow: 0 4px 12px rgba(49, 46, 129, 0.3);
+    border-color: rgba(99, 102, 241, 0.6);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
 }
 
 /* --- Animations --- */
