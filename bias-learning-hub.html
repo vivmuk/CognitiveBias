@@ -17,21 +17,22 @@
     <script src="all-99-biases.js"></script>
 </head>
 
-<body class="bg-slate-950 text-slate-100">
+<body>
 
     <!-- Navigation -->
     <nav class="nav-glass sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <div
-                    class="w-8 h-8 bg-indigo-900 rounded-sm flex items-center justify-center text-white font-serif font-bold shadow-lg">
+                    class="w-8 h-8 rounded-sm flex items-center justify-center text-white font-bold shadow-lg"
+                    style="background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);">
                     C</div>
-                <span class="font-serif text-xl font-bold text-slate-100 tracking-tight">Cognitive Bias Hub</span>
+                <span class="text-xl font-bold tracking-tight" style="color: var(--text-primary);">Cognitive Bias Hub</span>
             </div>
-            <div class="flex gap-8 text-sm font-medium text-slate-300">
-                <a href="#" class="text-indigo-200 border-b-2 border-indigo-300 pb-1">Library</a>
-                <a href="dashboard.html" class="hover:text-indigo-200 transition-colors">Dashboard</a>
-                <a href="#" class="hover:text-indigo-200 transition-colors opacity-50 cursor-not-allowed">Tools</a>
+            <div class="flex gap-8 text-sm font-medium" style="color: var(--text-secondary);">
+                <a href="#" class="pb-1 transition-colors" style="color: var(--accent-primary); border-bottom: 2px solid var(--accent-primary);">Library</a>
+                <a href="dashboard.html" class="transition-colors hover:opacity-80" style="color: var(--accent-primary);">Dashboard</a>
+                <a href="#" class="transition-colors opacity-50 cursor-not-allowed" style="color: var(--accent-primary);">Tools</a>
             </div>
         </div>
     </nav>
@@ -40,11 +41,11 @@
     <header class="hero-gradient py-20 px-6 mb-12 relative">
         <div class="hero-pattern"></div>
         <div class="container mx-auto text-center relative z-10">
-            <h1 class="font-serif text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
                 Master the Art of <br />
-                <span class="text-amber-400">Clear Thinking</span>
+                <span style="color: #fbbf24; text-shadow: 0 2px 10px rgba(251, 191, 36, 0.3);">Clear Thinking</span>
             </h1>
-            <p class="text-indigo-100 text-xl max-w-2xl mx-auto mb-10 font-light">
+            <p class="text-xl max-w-2xl mx-auto mb-10 font-light" style="color: rgba(255, 255, 255, 0.95);">
                 A comprehensive library of 99 cognitive biases to sharpen your decision-making skills.
             </p>
 
@@ -52,7 +53,7 @@
             <div class="search-container">
                 <input type="text" id="searchBox" class="search-input"
                     placeholder="Search for a bias (e.g., 'Anchoring', 'Sunk Cost')..." onkeyup="filterBiases()">
-                <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-300">
+                <div class="absolute right-4 top-1/2 transform -translate-y-1/2" style="color: var(--text-secondary);">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -86,6 +87,14 @@
         let allBiases = [];
         const progressData = JSON.parse(localStorage.getItem('biasProgress') || '{}');
 
+        // Category mapping with proper categorization
+        const categoryMap = {
+            'decision-making': [5, 7, 8, 10, 11, 12, 15, 16, 17, 18, 20, 21, 23, 24, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 55, 56, 57, 58, 59, 60, 61, 63, 66, 67, 68, 69, 70, 71, 72, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99],
+            'probability': [1, 2, 3, 19, 24, 26, 27, 28, 33, 55, 61, 75, 95],
+            'social': [4, 6, 9, 18, 22, 25, 32, 35, 36, 54, 65, 72, 77, 79, 87],
+            'memory': [13, 14, 43, 46, 62, 64, 70, 73, 88, 93]
+        };
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof all99CognitiveBiases !== 'undefined') {
@@ -97,14 +106,27 @@
         });
 
         function enhanceBiasData(bias) {
-            // Add category logic here (simplified for brevity, same as before)
-            let category = 'decision-making';
-            const t = bias.title.toLowerCase();
-            const id = bias.id;
-
-            if (t.includes('probability') || t.includes('base rate') || [1, 2, 3, 19, 24, 26, 27, 33, 55, 95].includes(id)) category = 'probability';
-            else if (t.includes('social') || t.includes('group') || [4, 6, 9, 18, 22, 25, 32, 35, 36, 65, 72].includes(id)) category = 'social';
-            else if (t.includes('memory') || t.includes('hindsight') || [13, 14, 43, 46, 62, 64, 70, 73, 88].includes(id)) category = 'memory';
+            // Determine category based on ID mapping
+            let category = 'decision-making'; // default
+            
+            for (const [cat, ids] of Object.entries(categoryMap)) {
+                if (ids.includes(bias.id)) {
+                    category = cat;
+                    break;
+                }
+            }
+            
+            // Fallback to title-based detection if not in map
+            if (category === 'decision-making') {
+                const t = bias.title.toLowerCase();
+                if (t.includes('probability') || t.includes('base rate') || t.includes('gambler')) {
+                    category = 'probability';
+                } else if (t.includes('social') || t.includes('group') || t.includes('reciprocity') || t.includes('authority') || t.includes('liking')) {
+                    category = 'social';
+                } else if (t.includes('memory') || t.includes('hindsight') || t.includes('story') || t.includes('recency') || t.includes('primacy')) {
+                    category = 'memory';
+                }
+            }
 
             return { ...bias, category };
         }
@@ -113,39 +135,50 @@
             const grid = document.getElementById('biasGrid');
             grid.innerHTML = '';
 
+            if (biases.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-lg" style="color: var(--text-secondary);">No biases found matching your search.</p></div>';
+                return;
+            }
+
             biases.forEach((bias, index) => {
                 const status = progressData[bias.id] || 'not-started';
                 const card = document.createElement('div');
 
                 // Add animation class with stagger
                 card.className = 'bias-card animate-fade-in';
-                card.style.animationDelay = `${index * 0.05}s`; // Stagger effect
+                card.style.animationDelay = `${index * 0.05}s`;
 
                 card.onclick = () => {
-                    // "Fun" interaction: slight bounce before nav
                     card.style.transform = "scale(0.95)";
                     setTimeout(() => {
                         window.location.href = `bias-${bias.id}.html`;
                     }, 150);
                 };
 
+                // Status badge
                 let statusBadge = '';
                 if (status === 'completed') {
-                    statusBadge = `<span class="status-badge status-completed">Mastered</span>`;
+                    statusBadge = '<span class="status-badge status-completed">Mastered</span>';
                 } else if (status === 'in-progress') {
-                    statusBadge = `<span class="status-badge status-progress">In Progress</span>`;
+                    statusBadge = '<span class="status-badge status-progress">In Progress</span>';
                 }
+
+                // Category tag with proper styling
+                const categoryLabel = bias.category.replace('-', ' ').split(' ').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join(' ');
 
                 card.innerHTML = `
                     <div class="bias-card-header">
-                        <span class="bias-id">#${bias.id}</span>
+                        <span class="bias-id">#${bias.id.toString().padStart(2, '0')}</span>
                         ${statusBadge}
                     </div>
                     <h3 class="bias-title">${bias.title}</h3>
+                    ${bias.subtitle ? `<p class="text-sm mb-2" style="color: var(--accent-secondary); font-weight: 500; font-style: italic;">${bias.subtitle}</p>` : ''}
                     <p class="bias-summary">${bias.summary}</p>
-                    <div class="mt-4 flex justify-between items-center pt-4 border-t border-slate-700">
-                        <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">${bias.category.replace('-', ' ')}</span>
-                        <span class="text-indigo-300 text-sm font-bold group-hover:translate-x-1 transition-transform">Explore →</span>
+                    <div class="bias-card-footer">
+                        <span class="category-tag ${bias.category}">${categoryLabel}</span>
+                        <span class="explore-link">Explore <span>→</span></span>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -164,7 +197,9 @@
             const term = document.getElementById('searchBox').value.toLowerCase();
             const filtered = allBiases.filter(b =>
                 b.title.toLowerCase().includes(term) ||
-                b.summary.toLowerCase().includes(term)
+                (b.subtitle && b.subtitle.toLowerCase().includes(term)) ||
+                b.summary.toLowerCase().includes(term) ||
+                b.category.toLowerCase().includes(term)
             );
             renderBiasCards(filtered);
         }
