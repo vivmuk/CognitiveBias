@@ -148,30 +148,6 @@ h6 {
     color: #92400e;
 }
 
-/* --- Search & Filter --- */
-.search-container {
-    position: relative;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.search-input {
-    width: 100%;
-    padding: 1rem 1.5rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 50px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background: white;
-    box-shadow: var(--card-shadow);
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 4px rgba(49, 46, 129, 0.1);
-}
-
 .filter-chip {
     background: white;
     border: 1px solid #e2e8f0;
