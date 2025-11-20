@@ -1,159 +1,112 @@
-/* Modern Learning App Design with Lexend, Montserrat, and Outfit Fonts */
+/* Material Design Dark Theme with Distinct Cards */
 
-/* Fonts loaded via HTML link tags for better performance */
+/* Fonts loaded via HTML link tags */
 /* Using: Lexend for titles, Montserrat for body, Outfit for UI elements */
 
 :root {
-    /* Vibrant Learning App Palette */
-    --bg-primary: #f0f9ff;
-    /* Sky 50 - Soft, calming background */
-    --bg-secondary: #ffffff;
-    --text-primary: #0c1226;
-    /* Deep navy for excellent readability */
-    --text-secondary: #4a5568;
-    /* Balanced gray for secondary text */
+    /* Material Design Dark Theme Palette */
+    --md-surface: #121212;
+    /* Material Dark Surface */
+    --md-surface-variant: #1e1e1e;
+    /* Elevated surfaces */
+    --md-background: #0a0a0a;
+    /* Deep background */
+    --md-card: #1e1e1e;
+    /* Card background */
+    --md-card-elevated: #2a2a2a;
+    /* Elevated cards */
     
-    /* Primary Accent - Vibrant Teal/Cyan */
-    --accent-primary: #06b6d4;
-    /* Cyan 500 */
-    --accent-primary-dark: #0891b2;
-    /* Cyan 600 */
-    --accent-primary-light: #67e8f9;
-    /* Cyan 300 */
+    /* Text Colors - High Contrast */
+    --md-text-primary: #ffffff;
+    /* White for primary text */
+    --md-text-secondary: #b3b3b3;
+    /* Light gray for secondary */
+    --md-text-disabled: #666666;
+    /* Disabled text */
     
-    /* Secondary Accent - Vibrant Purple */
-    --accent-secondary: #8b5cf6;
-    /* Violet 500 */
-    --accent-secondary-dark: #7c3aed;
-    /* Violet 600 */
-    --accent-secondary-light: #c4b5fd;
-    /* Violet 300 */
+    /* Accent Colors - Vibrant & Visible */
+    --md-primary: #22d3ee;
+    /* Cyan - Primary accent */
+    --md-primary-variant: #06b6d4;
+    /* Darker cyan */
+    --md-secondary: #a78bfa;
+    /* Purple - Secondary accent */
+    --md-secondary-variant: #8b5cf6;
+    /* Darker purple */
     
-    /* Category Colors */
-    --color-decision: #06b6d4;
-    /* Cyan */
-    --color-social: #8b5cf6;
-    /* Violet */
-    --color-memory: #f97316;
-    /* Orange */
-    --color-probability: #10b981;
-    /* Emerald */
+    /* Category Colors - Distinct & Bright */
+    --color-decision: #22d3ee;
+    /* Bright Cyan */
+    --color-social: #a78bfa;
+    /* Bright Purple */
+    --color-memory: #fb923c;
+    /* Bright Orange */
+    --color-probability: #34d399;
+    /* Bright Emerald */
     
-    /* Success & Status */
-    --success: #10b981;
-    --success-light: #34d399;
-    --warning: #f59e0b;
-    --warning-light: #fbbf24;
+    /* Status Colors */
+    --success: #34d399;
+    --success-dark: #10b981;
+    --warning: #fbbf24;
+    --warning-dark: #f59e0b;
     
-    /* Gradient Colors for Hero */
-    --gradient-start: #6366f1;
-    --gradient-mid: #8b5cf6;
-    --gradient-end: #ec4899;
+    /* Material Design Elevation Shadows */
+    --md-elevation-1: 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+    --md-elevation-2: 0 4px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+    --md-elevation-4: 0 8px 16px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.4);
+    --md-elevation-8: 0 16px 24px rgba(0, 0, 0, 0.6), 0 8px 12px rgba(0, 0, 0, 0.5);
     
-    /* Shadows & Effects */
-    --card-shadow: 0 4px 6px -1px rgba(6, 182, 212, 0.1), 0 2px 4px -1px rgba(6, 182, 212, 0.06);
-    --card-hover-shadow: 0 20px 25px -5px rgba(6, 182, 212, 0.15), 0 10px 10px -5px rgba(6, 182, 212, 0.08);
-    --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* Transitions */
+    --md-transition: cubic-bezier(0.4, 0.0, 0.2, 1);
+    /* Material standard easing */
 }
 
-/* Dark Theme Support - Only apply when explicitly preferred */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-primary: #0f172a;
-        --bg-secondary: #1e293b;
-        --text-primary: #f1f5f9;
-        --text-secondary: #cbd5e1;
-        --accent-primary: #22d3ee;
-        --accent-primary-dark: #06b6d4;
-        --accent-primary-light: #67e8f9;
-        --accent-secondary: #a78bfa;
-        --accent-secondary-dark: #8b5cf6;
-        --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-        --card-hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-    }
-    
-    body {
-        background-color: #0f172a !important;
-        color: #f1f5f9 !important;
-    }
-    
-    .bias-card {
-        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
-        color: #f1f5f9 !important;
-    }
-    
-    .bias-title {
-        color: #f1f5f9 !important;
-    }
-    
-    .bias-summary {
-        color: #cbd5e1 !important;
-    }
-    
-    .search-input {
-        background: #1e293b !important;
-        color: #f1f5f9 !important;
-    }
-    
-    .filter-chip {
-        background: #1e293b !important;
-        color: #cbd5e1 !important;
-    }
-}
-
-/* Base Typography - Lexend for titles, Montserrat for body, Outfit for UI */
+/* Base Styles - Dark Material Design */
 * {
     font-family: 'Montserrat', sans-serif;
 }
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #f0f9ff !important;
-    color: #0c1226 !important;
+    background-color: var(--md-background) !important;
+    background: linear-gradient(180deg, var(--md-background) 0%, var(--md-surface) 100%);
+    color: var(--md-text-primary) !important;
     line-height: 1.7;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
 }
 
-/* Force light theme colors unless dark mode is explicitly preferred */
-body:not(.dark-mode) {
-    background-color: #f0f9ff !important;
-    color: #0c1226 !important;
-}
-
-/* Titles use Lexend - especially emphasized */
+/* Typography - Lexend for titles */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Lexend', sans-serif;
-    color: #0c1226 !important;
+    color: var(--md-text-primary) !important;
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
 }
 
 h1 {
-    font-family: 'Lexend', sans-serif;
     font-weight: 800;
     letter-spacing: -0.03em;
 }
 
 h2 {
-    font-family: 'Lexend', sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
 }
 
 h3 {
-    font-family: 'Lexend', sans-serif;
     font-weight: 600;
     letter-spacing: -0.01em;
 }
 
-/* Body text uses Montserrat */
 p {
     font-family: 'Montserrat', sans-serif;
+    color: var(--md-text-secondary);
 }
 
 /* UI elements use Outfit */
@@ -161,45 +114,29 @@ button, .filter-chip, .search-input, .status-badge, .category-tag, .explore-link
     font-family: 'Outfit', sans-serif;
 }
 
-/* Navigation and links use Outfit */
 a, nav, .nav-glass {
     font-family: 'Outfit', sans-serif;
 }
 
-/* Card titles use Lexend */
 .bias-title {
     font-family: 'Lexend', sans-serif;
 }
 
-/* Navigation */
+/* Material Design Navigation */
 .nav-glass {
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(12px);
-    border-bottom: 2px solid rgba(6, 182, 212, 0.15);
-    box-shadow: 0 1px 3px rgba(6, 182, 212, 0.1);
+    background: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--md-elevation-2);
 }
 
-.nav-glass * {
-    color: inherit;
-}
-
-@media (prefers-color-scheme: dark) {
-    .nav-glass {
-        background: rgba(30, 41, 59, 0.95) !important;
-        border-bottom: 2px solid rgba(34, 211, 238, 0.2);
-    }
-    
-    h1, h2, h3, h4, h5, h6 {
-        color: #f1f5f9 !important;
-    }
-}
-
-/* Hero Section */
+/* Material Design Hero Section */
 .hero-gradient {
-    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     color: white;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--md-elevation-4);
 }
 
 .hero-pattern {
@@ -208,24 +145,24 @@ a, nav, .nav-glass {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 30px 30px;
-    opacity: 0.3;
+    background-image: radial-gradient(rgba(34, 211, 238, 0.15) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.4;
 }
 
-/* Enhanced Bias Cards - Each card is distinct */
+/* Material Design Cards - Distinct & Elevated */
 .bias-card {
-    border: 2px solid rgba(6, 182, 212, 0.2);
+    background: var(--md-card) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 1.75rem;
     position: relative;
-    transition: all 0.4s var(--transition-bounce);
+    transition: all 0.3s var(--md-transition);
     cursor: pointer;
     overflow: hidden;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%) !important;
-    box-shadow: var(--card-shadow);
+    box-shadow: var(--md-elevation-2);
     isolation: isolate;
-    color: #0c1226 !important;
+    color: var(--md-text-primary) !important;
 }
 
 .bias-card-pattern {
@@ -237,13 +174,7 @@ a, nav, .nav-glass {
     pointer-events: none;
     z-index: 0;
     border-radius: 16px;
-}
-
-@media (prefers-color-scheme: dark) {
-    .bias-card {
-        border: 2px solid rgba(34, 211, 238, 0.3);
-        background: linear-gradient(135deg, var(--bg-secondary) 0%, #1e293b 100%);
-    }
+    opacity: 0.15;
 }
 
 .bias-card::before {
@@ -251,25 +182,19 @@ a, nav, .nav-glass {
     position: absolute;
     top: 0;
     left: 0;
-    width: 5px;
+    width: 4px;
     height: 100%;
-    background: var(--card-accent, linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-secondary) 100%));
+    background: var(--card-accent, var(--md-primary));
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s var(--md-transition);
     z-index: 1;
 }
 
 .bias-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--card-hover-shadow);
-    border-color: var(--accent-primary);
-    background: linear-gradient(135deg, #ffffff 0%, #ecfeff 100%) !important;
-}
-
-@media (prefers-color-scheme: dark) {
-    .bias-card:hover {
-        background: linear-gradient(135deg, var(--bg-secondary) 0%, #334155 100%);
-    }
+    transform: translateY(-4px);
+    box-shadow: var(--md-elevation-8);
+    border-color: rgba(255, 255, 255, 0.2);
+    background: var(--md-card-elevated) !important;
 }
 
 .bias-card:hover::before {
@@ -277,7 +202,8 @@ a, nav, .nav-glass {
 }
 
 .bias-card:active {
-    transform: scale(0.98);
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: var(--md-elevation-4);
 }
 
 .bias-card-header {
@@ -293,29 +219,22 @@ a, nav, .nav-glass {
 .bias-id {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    color: var(--accent-primary-dark);
-    background: linear-gradient(135deg, var(--accent-primary-light) 0%, rgba(207, 250, 254, 0.5) 100%);
-    padding: 0.35rem 0.65rem;
+    color: var(--card-accent, var(--md-primary)) !important;
+    background: rgba(34, 211, 238, 0.15);
+    padding: 0.4rem 0.7rem;
     border-radius: 8px;
     font-weight: 600;
-    border: 1px solid rgba(6, 182, 212, 0.2);
+    border: 1px solid rgba(34, 211, 238, 0.3);
     white-space: nowrap;
-}
-
-@media (prefers-color-scheme: dark) {
-    .bias-id {
-        color: var(--accent-primary-light);
-        background: linear-gradient(135deg, rgba(34, 211, 238, 0.2) 0%, rgba(34, 211, 238, 0.1) 100%);
-        border: 1px solid rgba(34, 211, 238, 0.3);
-    }
+    backdrop-filter: blur(10px);
 }
 
 .bias-title {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
     line-height: 1.3;
-    color: #0c1226 !important;
+    color: var(--md-text-primary) !important;
     font-family: 'Lexend', sans-serif;
     position: relative;
     z-index: 1;
@@ -324,7 +243,7 @@ a, nav, .nav-glass {
 .bias-summary {
     font-family: 'Montserrat', sans-serif;
     font-size: 0.95rem;
-    color: #4a5568 !important;
+    color: var(--md-text-secondary) !important;
     line-height: 1.6;
     font-weight: 400;
     margin-bottom: 1rem;
@@ -332,90 +251,69 @@ a, nav, .nav-glass {
     z-index: 1;
 }
 
-/* Status Badges */
+/* Status Badges - Material Design */
 .status-badge {
     font-family: 'Outfit', sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
-    padding: 0.3rem 0.75rem;
-    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+    border-radius: 16px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     white-space: nowrap;
+    box-shadow: var(--md-elevation-1);
 }
 
 .status-completed {
-    background: linear-gradient(135deg, var(--success-light) 0%, var(--success) 100%);
-    color: #ffffff;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
+    color: #000000 !important;
+    font-weight: 800;
 }
 
 .status-progress {
-    background: linear-gradient(135deg, var(--warning-light) 0%, var(--warning) 100%);
-    color: #ffffff;
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    background: linear-gradient(135deg, var(--warning) 0%, var(--warning-dark) 100%);
+    color: #000000 !important;
+    font-weight: 800;
 }
 
-/* Category Tags */
+/* Category Tags - Material Design Chips */
 .category-tag {
     display: inline-block;
     font-family: 'Outfit', sans-serif;
     font-size: 0.7rem;
     font-weight: 600;
-    padding: 0.4rem 0.85rem;
+    padding: 0.45rem 0.9rem;
     border-radius: 20px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
-    transition: all 0.2s ease;
+    transition: all 0.2s var(--md-transition);
+    box-shadow: var(--md-elevation-1);
 }
 
 .category-tag.decision-making {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(6, 182, 212, 0.25) 100%);
-    color: var(--color-decision);
-    border: 1px solid rgba(6, 182, 212, 0.3);
+    background: rgba(34, 211, 238, 0.2);
+    color: var(--color-decision) !important;
+    border: 1px solid rgba(34, 211, 238, 0.4);
 }
 
 .category-tag.social {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.25) 100%);
-    color: var(--color-social);
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    background: rgba(167, 139, 250, 0.2);
+    color: var(--color-social) !important;
+    border: 1px solid rgba(167, 139, 250, 0.4);
 }
 
 .category-tag.memory {
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(249, 115, 22, 0.25) 100%);
-    color: var(--color-memory);
-    border: 1px solid rgba(249, 115, 22, 0.3);
+    background: rgba(251, 146, 60, 0.2);
+    color: var(--color-memory) !important;
+    border: 1px solid rgba(251, 146, 60, 0.4);
 }
 
 .category-tag.probability {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.25) 100%);
-    color: var(--color-probability);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-@media (prefers-color-scheme: dark) {
-    .category-tag.decision-making {
-        background: linear-gradient(135deg, rgba(34, 211, 238, 0.2) 0%, rgba(34, 211, 238, 0.1) 100%);
-        color: #67e8f9;
-        border: 1px solid rgba(34, 211, 238, 0.3);
-    }
-    .category-tag.social {
-        background: linear-gradient(135deg, rgba(167, 139, 250, 0.2) 0%, rgba(167, 139, 250, 0.1) 100%);
-        color: #c4b5fd;
-        border: 1px solid rgba(167, 139, 250, 0.3);
-    }
-    .category-tag.memory {
-        background: linear-gradient(135deg, rgba(251, 146, 60, 0.2) 0%, rgba(251, 146, 60, 0.1) 100%);
-        color: #fdba74;
-        border: 1px solid rgba(251, 146, 60, 0.3);
-    }
-    .category-tag.probability {
-        background: linear-gradient(135deg, rgba(52, 211, 153, 0.2) 0%, rgba(52, 211, 153, 0.1) 100%);
-        color: #6ee7b7;
-        border: 1px solid rgba(52, 211, 153, 0.3);
-    }
+    background: rgba(52, 211, 153, 0.2);
+    color: var(--color-probability) !important;
+    border: 1px solid rgba(52, 211, 153, 0.4);
 }
 
 /* Card Footer */
@@ -425,34 +323,28 @@ a, nav, .nav-glass {
     align-items: center;
     margin-top: 1.25rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(6, 182, 212, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     z-index: 1;
-}
-
-@media (prefers-color-scheme: dark) {
-    .bias-card-footer {
-        border-top: 1px solid rgba(34, 211, 238, 0.2);
-    }
 }
 
 .explore-link {
     font-family: 'Outfit', sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--accent-primary);
-    transition: all 0.2s ease;
+    color: var(--md-primary) !important;
+    transition: all 0.2s var(--md-transition);
     display: flex;
     align-items: center;
     gap: 0.25rem;
 }
 
 .explore-link:hover {
-    color: var(--accent-primary-dark);
+    color: var(--md-primary-variant) !important;
     transform: translateX(4px);
 }
 
-/* Search & Filter */
+/* Material Design Search */
 .search-container {
     position: relative;
     max-width: 600px;
@@ -462,64 +354,60 @@ a, nav, .nav-glass {
 .search-input {
     width: 100%;
     padding: 1rem 1.5rem;
-    border: 2px solid rgba(6, 182, 212, 0.3);
-    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 28px;
     font-size: 1rem;
     font-family: 'Outfit', sans-serif;
     font-weight: 400;
-    transition: all 0.3s ease;
-    background: #ffffff !important;
-    color: #0c1226 !important;
-    box-shadow: var(--card-shadow);
+    transition: all 0.3s var(--md-transition);
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px);
+    color: var(--md-text-primary) !important;
+    box-shadow: var(--md-elevation-2);
 }
 
-@media (prefers-color-scheme: dark) {
-    .search-input {
-        border: 2px solid rgba(34, 211, 238, 0.4);
-    }
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .search-input:focus {
     outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.15), 0 0 20px rgba(6, 182, 212, 0.1);
-    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%) !important;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2), var(--md-elevation-4);
+    background: rgba(255, 255, 255, 0.15) !important;
 }
 
+/* Material Design Filter Chips */
 .filter-chip {
-    background: #ffffff !important;
-    border: 2px solid rgba(6, 182, 212, 0.3);
-    padding: 0.6rem 1.5rem;
-    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.65rem 1.5rem;
+    border-radius: 24px;
     font-size: 0.9rem;
     font-weight: 600;
     font-family: 'Outfit', sans-serif;
-    color: #4a5568 !important;
+    color: var(--md-text-primary) !important;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s var(--md-transition);
     user-select: none;
-}
-
-@media (prefers-color-scheme: dark) {
-    .filter-chip {
-        border: 2px solid rgba(34, 211, 238, 0.4);
-    }
+    box-shadow: var(--md-elevation-1);
 }
 
 .filter-chip:hover {
-    background: linear-gradient(135deg, #f0f9ff 0%, rgba(224, 242, 254, 0.5) 100%) !important;
-    border-color: var(--accent-primary);
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: var(--md-primary);
     transform: translateY(-2px);
-    color: #0891b2 !important;
-    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+    box-shadow: var(--md-elevation-2);
 }
 
 .filter-chip.active {
-    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-secondary) 100%) !important;
+    color: #000000 !important;
     border-color: transparent;
-    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.2);
+    box-shadow: var(--md-elevation-4);
     transform: translateY(-2px);
+    font-weight: 700;
 }
 
 /* Animations */
@@ -535,7 +423,7 @@ a, nav, .nav-glass {
 }
 
 .animate-fade-in {
-    animation: fadeInUp 0.6s ease forwards;
+    animation: fadeInUp 0.6s var(--md-transition) forwards;
 }
 
 .bias-grid>div:nth-child(1) { animation-delay: 0.1s; }
