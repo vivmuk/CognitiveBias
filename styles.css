@@ -433,6 +433,254 @@ a, nav, .nav-glass {
 .bias-grid>div:nth-child(5) { animation-delay: 0.3s; }
 .bias-grid>div:nth-child(6) { animation-delay: 0.35s; }
 
+/* Bias Detail Pages - Carded Sections */
+.content-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--md-elevation-2);
+}
+
+.content-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.08) 0%, transparent 30%),
+        radial-gradient(circle at 80% 0%, rgba(167, 139, 250, 0.08) 0%, transparent 35%);
+    opacity: 1;
+    pointer-events: none;
+}
+
+.content-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.quiz-container {
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.14), rgba(167, 139, 250, 0.12));
+    border: 1px solid rgba(34, 211, 238, 0.32);
+    border-radius: 18px;
+    padding: 1.75rem;
+    box-shadow: var(--md-elevation-4);
+    position: relative;
+    overflow: hidden;
+}
+
+.quiz-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 10% -10%, rgba(34, 211, 238, 0.2) 0%, transparent 35%);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+#quizContent {
+    display: grid;
+    gap: 1.25rem;
+}
+
+#quizContent > .mb-6 {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 4px solid var(--md-primary);
+    border-radius: 14px;
+    padding: 1.25rem 1.25rem 1.1rem;
+    margin-bottom: 0;
+    box-shadow: var(--md-elevation-1);
+}
+
+.quiz-option {
+    background: rgba(15, 52, 96, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 0.9rem 1.15rem;
+    color: var(--md-text-primary) !important;
+    font-weight: 600;
+    width: 100%;
+    text-align: left;
+    transition: transform 0.15s var(--md-transition), box-shadow 0.15s var(--md-transition), border-color 0.15s ease, background 0.15s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.quiz-option:hover:not(:disabled) {
+    border-color: var(--md-primary);
+    background: rgba(34, 211, 238, 0.12);
+    box-shadow: var(--md-elevation-2);
+    transform: translateY(-2px);
+}
+
+.quiz-option:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+#quizResult {
+    background: rgba(52, 211, 153, 0.12);
+    border: 1px solid rgba(52, 211, 153, 0.4);
+    border-radius: 14px;
+    padding: 1.25rem;
+    box-shadow: var(--md-elevation-2);
+}
+
+#quizResult button {
+    width: auto;
+    box-shadow: var(--md-elevation-2);
+}
+
+.deep-dive-section {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 4px solid var(--md-secondary);
+    border-radius: 18px;
+    padding: 1.75rem;
+    margin-top: 1.5rem;
+    box-shadow: var(--md-elevation-4);
+}
+
+#explore > .mb-6 {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--md-elevation-1);
+}
+
+#explore > .mb-6 h3 {
+    margin-top: 0;
+}
+
+#explore .flex.flex-wrap {
+    gap: 0.75rem;
+}
+
+.exploration-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(34, 211, 238, 0.15);
+    border: 1px solid rgba(34, 211, 238, 0.4);
+    color: var(--md-text-primary) !important;
+    padding: 0.65rem 1rem;
+    border-radius: 12px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: all 0.2s var(--md-transition);
+    text-decoration: none;
+    box-shadow: var(--md-elevation-1);
+}
+
+.exploration-button:hover {
+    background: rgba(34, 211, 238, 0.25);
+    transform: translateY(-2px);
+    box-shadow: var(--md-elevation-2);
+}
+
+.exploration-button.active {
+    background: var(--md-primary);
+    color: #0a0a0a !important;
+    border-color: var(--md-primary-variant);
+    box-shadow: var(--md-elevation-4);
+}
+
+#suggestedQuestions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+}
+
+#suggestedQuestions .exploration-button {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.custom-prompt-area {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 1rem;
+    color: var(--md-text-primary);
+    width: 100%;
+    min-height: 120px;
+    margin-top: 0.75rem;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s var(--md-transition);
+}
+
+.custom-prompt-area::placeholder {
+    color: rgba(226, 232, 240, 0.7);
+}
+
+.custom-prompt-area:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2), var(--md-elevation-2);
+}
+
+.ai-response-viewer {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 1.1rem 1.25rem;
+    line-height: 1.7;
+    color: var(--md-text-secondary);
+    box-shadow: var(--md-elevation-1);
+}
+
+.ai-response-viewer h1,
+.ai-response-viewer h2,
+.ai-response-viewer h3 {
+    color: var(--md-text-primary);
+    margin: 0.6rem 0 0.35rem;
+}
+
+.ai-response-viewer ul {
+    padding-left: 1.15rem;
+    margin: 0.5rem 0;
+    color: var(--md-text-secondary);
+}
+
+#aiResponse {
+    background: rgba(167, 139, 250, 0.08);
+    border: 1px solid rgba(167, 139, 250, 0.35);
+    border-radius: 14px;
+    padding: 1.25rem;
+    box-shadow: var(--md-elevation-2);
+}
+
+#loadingState {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    box-shadow: var(--md-elevation-1);
+}
+
+.loading-spinner {
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    border-top: 3px solid var(--md-primary);
+    width: 36px;
+    height: 36px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Real-World Example Section - Enhanced Design */
 .real-world-example-section {
     position: relative;
