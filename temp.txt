@@ -1,0 +1,80 @@
+            currentBias = bias;
+            populatePage(bias);
+        }
+
+        function populatePage(bias) {
+            const difficulty = getBiasDifficulty(bias);
+            const category = getBiasCategory(bias);
+            const categoryLabel = formatCategoryLabel(category);
+
+            document.title = bias.title + " - Cognitive Bias Learning Hub";
+            setText('biasCounter', 'Bias #' + bias.id + ' / 99');
+            setText('categoryEyebrow', categoryLabel + ' Focus');
+            setText('biasTitle', bias.title);
+            setText('biasSubtitle', bias.subtitle);
+            setText('heroSummary', bias.summary);
+            setText('metaCategory', categoryLabel);
+            setText('metaDifficulty', difficulty);
+            setText('metaChapter', 'Chapter ' + bias.id);
+            setText('statTheme', bias.subtitle || bias.title);
+            setText('statDifficulty', difficulty);
+            setText('statProgress', getProgressLabel());
+            setText('spotIntro', 'Use these cues when the conversation starts leaning on this bias.');
+            setText('spotSummary', bias.summary);
+            setText('spotDetect', bias.howToDetect);
+            setText('spotPsychology', bias.psychologyInsight);
+            setText('calloutText', bias.howToDetect);
+            setText('deepExplanation', bias.detailedExplanation);
+            setText('detectionCallout', bias.psychologyInsight);
+
+            renderCountermeasures(bias.countermeasures || []);
+
+            setText('caseLabel', bias.title + ' in the wild');
+            setText('exampleText', bias.realWorldExample);
+            setText('caseCategory', categoryLabel);
+            setText('caseDifficulty', difficulty);
+            setText('caseTheme', bias.subtitle || bias.title);
+            setText('timelineSpot', bias.summary);
+            setText('timelineEvaluate', bias.howToDetect);
+            setText('timelineRespond', (bias.countermeasures && bias.countermeasures[0]) || 'Translate awareness into concrete actions.');
+
+            renderQuiz(bias);
+
+            const promptArea = document.getElementById('customPrompt');
+            if (promptArea) {
+                promptArea.placeholder = 'Ask anything about ' + bias.title + '...';
+            }
+
+            loadSuggestedQuestions();
+        }
+
+        function renderCountermeasures(list) {
+            const container = document.getElementById('countermeasureList');
+            if (!container) return;
+            container.innerHTML = '';
+            if (!list.length) {
+                const li = document.createElement('li');
+                li.textContent = 'Document at least one countermeasure for this bias.';
+                container.appendChild(li);
+                return;
+            }
+            list.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                container.appendChild(li);
+            });
+        }
+
+        function renderQuiz(bias) {
+            const quizQuestion = document.getElementById('quizQuestion');
+            const quizOptions = document.getElementById('quizOptions');
+            if (!quizQuestion || !quizOptions) return;
+
+            quizQuestion.textContent = bias.quiz?.question || 'What best describes this bias?';
+            quizOptions.innerHTML = '';
+
+            const incorrect = bias.quiz?.incorrect || [];
+            incorrect.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'quiz-option w-full text-left';
+                button.textContent = option;

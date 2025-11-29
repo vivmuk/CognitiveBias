@@ -604,7 +604,7 @@ function generateBiasPageHTML(biasId) {
                 );
                 showAIResponse(response);
             } catch (error) {
-                showAIResponse("I’m having trouble reaching the AI service right now. Please try again shortly.");
+                showAIResponse("I'm having trouble reaching the AI service right now. Please try again shortly.");
             }
         }
 
@@ -625,7 +625,7 @@ function generateBiasPageHTML(biasId) {
                 );
                 showAIResponse(response);
             } catch (error) {
-                showAIResponse("I’m having trouble reaching the AI service right now. Please try again shortly.");
+                showAIResponse("I'm having trouble reaching the AI service right now. Please try again shortly.");
             }
         }
 
@@ -639,7 +639,7 @@ function generateBiasPageHTML(biasId) {
                 );
                 showAIResponse(response);
             } catch (error) {
-                showAIResponse("I’m having trouble reaching the AI service right now. Please try again shortly.");
+                showAIResponse("I'm having trouble reaching the AI service right now. Please try again shortly.");
             }
         }
 
