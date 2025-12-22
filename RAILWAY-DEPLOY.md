@@ -65,7 +65,7 @@ The project includes:
 4. Click "New Variable"
 5. Add:
    - **Name**: `VENICE_API_KEY`
-   - **Value**: `lnWNeSg0pA_rQUooNpbfpPDBaj2vJnWol5WqKWrIEF` (your actual API key)
+   - **Value**: `-28c7m7CCiJxA20hQH8fHnxTqTwYFxPvfO3LnkTMgP` (your actual API key)
 6. Click "Add"
 
 **Why?**

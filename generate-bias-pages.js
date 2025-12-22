@@ -279,34 +279,6 @@ function generateBiasPageHTML(bias) {
             transition: width 0.3s ease;
         }
         
-        .floating-nav {
-            position: fixed;
-            left: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 1rem;
-            z-index: 100;
-        }
-        
-        .nav-item {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem;
-            margin: 0.25rem 0;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        
-        .nav-item:hover, .nav-item.active {
-            background: rgba(255, 255, 255, 0.2);
-        }
     </style>
 </head>
 <body>
@@ -315,16 +287,7 @@ function generateBiasPageHTML(bias) {
         <div class="progress-fill" id="progressFill"></div>
     </div>
 
-    <!-- Floating Navigation -->
-    <div class="floating-nav">
-        <a href="#overview" class="nav-item active" onclick="scrollToSection('overview')">Overview</a>
-        <a href="#details" class="nav-item" onclick="scrollToSection('details')">Details</a>
-        <a href="#examples" class="nav-item" onclick="scrollToSection('examples')">Examples</a>
-        <a href="#quiz" class="nav-item" onclick="scrollToSection('quiz')">Quiz</a>
-        <a href="#explore" class="nav-item" onclick="scrollToSection('explore')">Explore</a>
-    </div>
-
-    <div class="container mx-auto px-4 py-8 ml-20">
+    <div class="container mx-auto px-4 py-8">
         <!-- Navigation Bar -->
         <div class="navigation-bar">
             <div class="flex justify-between items-center text-white">
@@ -514,13 +477,10 @@ function generateBiasPageHTML(bias) {
         });
 
         function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-            
-            // Update active nav item
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelector(\`[href="#\${sectionId}"]\`).classList.add('active');
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         function updateProgress() {

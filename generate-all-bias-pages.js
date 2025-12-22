@@ -51,16 +51,6 @@ function generateBiasPageHTML(biasId) {
         <div class="progress-fill" id="progressFill"></div>
     </div>
 
-    <div class="floating-nav">
-        <span class="floating-nav-label">On this page</span>
-        <a href="#overview" class="nav-item active" onclick="scrollToSection('overview', this)">Overview</a>
-        <a href="#signals" class="nav-item" onclick="scrollToSection('signals', this)">Signals</a>
-        <a href="#details" class="nav-item" onclick="scrollToSection('details', this)">Deep Dive</a>
-        <a href="#examples" class="nav-item" onclick="scrollToSection('examples', this)">Examples</a>
-        <a href="#quiz" class="nav-item" onclick="scrollToSection('quiz', this)">Quiz</a>
-        <a href="#explore" class="nav-item" onclick="scrollToSection('explore', this)">AI Lab</a>
-    </div>
-
     <div class="bias-page-shell">
         <div class="navigation-bar">
             <a href="index.html" class="back-link">
@@ -305,13 +295,11 @@ function generateBiasPageHTML(biasId) {
     <script>
         const veniceAPI = new VeniceAPIService();
         const BIAS_ID = ${biasId};
-        const sectionIds = ['overview', 'signals', 'details', 'examples', 'quiz', 'explore'];
         let currentBias = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             loadBiasData();
             updateProgress();
-            highlightActiveSection();
         });
 
         function loadBiasData() {
@@ -484,17 +472,10 @@ function generateBiasPageHTML(biasId) {
             return 'Not started';
         }
 
-        function scrollToSection(sectionId, trigger) {
+        function scrollToSection(sectionId) {
             const target = document.getElementById(sectionId);
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            document.querySelectorAll('.floating-nav .nav-item').forEach(item => item.classList.remove('active'));
-            if (trigger) {
-                trigger.classList.add('active');
-            } else {
-                const navItem = document.querySelector('.floating-nav .nav-item[href="#' + sectionId + '"]');
-                if (navItem) navItem.classList.add('active');
             }
         }
 
@@ -504,21 +485,6 @@ function generateBiasPageHTML(biasId) {
             const documentHeight = document.documentElement.scrollHeight;
             const progress = (scrollPosition / (documentHeight - windowHeight)) * 100;
             document.getElementById('progressFill').style.width = Math.min(progress, 100) + '%';
-        }
-
-        function highlightActiveSection() {
-            let current = sectionIds[0];
-            sectionIds.forEach(id => {
-                const section = document.getElementById(id);
-                if (!section) return;
-                const rect = section.getBoundingClientRect();
-                if (rect.top <= window.innerHeight * 0.35) {
-                    current = id;
-                }
-            });
-            document.querySelectorAll('.floating-nav .nav-item').forEach(item => item.classList.remove('active'));
-            const activeLink = document.querySelector('.floating-nav .nav-item[href="#' + current + '"]');
-            if (activeLink) activeLink.classList.add('active');
         }
 
         function selectAnswer(button, isCorrect) {
@@ -684,7 +650,6 @@ function generateBiasPageHTML(biasId) {
 
         window.addEventListener('scroll', () => {
             updateProgress();
-            highlightActiveSection();
         });
     </script>
 </body>
