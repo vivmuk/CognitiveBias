@@ -27,11 +27,11 @@ app.get('/health', (req, res) => {
 
 // Proxy endpoint for Venice AI API (keeps API key secure server-side)
 app.post('/api/venice', async (req, res) => {
-    const apiKey = process.env.VENICE_API_KEY || '-28c7m7CCiJxA20hQH8fHnxTqTwYFxPvfO3LnkTMgP';
+    const apiKey = process.env.VENICE_API_KEY;
     
     if (!apiKey) {
         return res.status(500).json({ 
-            error: 'Venice API key not configured. Set VENICE_API_KEY environment variable.' 
+            error: 'Venice API key not configured. Set VENICE_API_KEY environment variable in Railway.' 
         });
     }
 

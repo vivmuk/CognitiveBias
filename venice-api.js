@@ -1,9 +1,9 @@
 // Venice AI API Service for Cognitive Bias Deep Exploration
 class VeniceAPIService {
     constructor() {
-        // Use Netlify Function proxy endpoint (for production)
-        // The proxy keeps the API key secure on the server
-        this.baseURL = '/.netlify/functions/venice-proxy'; // Netlify Function endpoint
+        // Use Railway server proxy endpoint (keeps API key secure server-side)
+        // The proxy uses VENICE_API_KEY environment variable from Railway
+        this.baseURL = '/api/venice'; // Railway server endpoint
         this.model = 'qwen3-next-80b'; // Using Qwen3 Next 80B model with web search
     }
 

@@ -26,8 +26,8 @@ exports.handler = async (event, context) => {
         };
     }
 
-    // Get API key from environment variable or use default
-    const apiKey = process.env.VENICE_API_KEY || '-28c7m7CCiJxA20hQH8fHnxTqTwYFxPvfO3LnkTMgP';
+    // Get API key from environment variable
+    const apiKey = process.env.VENICE_API_KEY;
     
     if (!apiKey) {
         return {
