@@ -27,7 +27,7 @@ app.get('/health', (req, res) => {
 
 // Proxy endpoint for Venice AI API (keeps API key secure server-side)
 app.post('/api/venice', async (req, res) => {
-    const apiKey = process.env.VENICE_API_KEY;
+    const apiKey = (req.headers && (req.headers['x-venice-key'] || req.headers['X-Venice-Key'])) || process.env.VENICE_API_KEY;
     
     if (!apiKey) {
         return res.status(500).json({ 

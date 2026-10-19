@@ -145,6 +145,7 @@ Explore:
             console.log('Origin:', window.location.origin);
             
             const response = await fetch(this.baseURL, {
+            headers: { 'x-venice-key': (window.getVeniceKey ? (window.getVeniceKey()||'') : '') },
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -245,6 +246,7 @@ Please provide a thoughtful, detailed response that combines scientific accuracy
             console.log('Origin:', window.location.origin);
             
             const response = await fetch(this.baseURL, {
+            headers: { 'x-venice-key': (window.getVeniceKey ? (window.getVeniceKey()||'') : '') },
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

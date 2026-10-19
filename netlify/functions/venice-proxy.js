@@ -8,7 +8,7 @@ exports.handler = async (event, context) => {
             statusCode: 200,
             headers: {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Headers': 'Content-Type, x-venice-key',
                 'Access-Control-Allow-Methods': 'POST, OPTIONS'
             },
             body: ''
@@ -27,7 +27,7 @@ exports.handler = async (event, context) => {
     }
 
     // Get API key from environment variable
-    const apiKey = process.env.VENICE_API_KEY;
+    const apiKey = (event.headers && (event.headers['x-venice-key'] || event.headers['X-Venice-Key'])) || process.env.VENICE_API_KEY;
     
     if (!apiKey) {
         return {
@@ -69,7 +69,7 @@ exports.handler = async (event, context) => {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Headers': 'Content-Type, x-venice-key',
                 'Access-Control-Allow-Methods': 'POST, OPTIONS'
             },
             body: JSON.stringify(data)
